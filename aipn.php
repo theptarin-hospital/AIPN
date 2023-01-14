@@ -33,7 +33,7 @@ class cipn_xlm {
     /**
      * AN. รหัสผู้ป่วยใน
      */
-    private $AN = 0; 
+    private $an = 0; 
 
 	private $invoice_no = "";
 
@@ -110,7 +110,7 @@ class cipn_xlm {
         $this->Invoices();
 
 /* แสดงผลบน จอภาพ */
-        echo $this->dom->saveXML();
+       // echo $this->dom->saveXML();
     }
 
     /**
@@ -126,11 +126,11 @@ class cipn_xlm {
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
         );
         $db_conn = new PDO($dsn, $username, $password, $options);
-        $sql = "SELECT concat(`AN`,'|',`HN`,'|',`IDTYPE`,'|',`PIDPAT`,'|',`TITLE`,'|',`NAMEPAT`,'|',`DOB`,'|',`SEX`,'|',`MARRIAGE`,'|',`CHANGWAT`,'|',`AMPHUR`,'|',`NATION`,'|',`AdmType`,'|',`AdmSource`,'|',`DTAdm`,'|',`DTDisch`,'|',`LeaveDay`,'|',`DischStat`,'|',`DischType`,'|',`AdmWt`,'|',`DischWard`,'|',`Dept`) AS `ipadt`,`AN`, `Invoice`, `RECEIPT_DATE`, `ServiceType` FROM `aipn_ipadt`";
+        $sql = "SELECT concat(`AN`,'|',`HN`,'|',`IDTYPE`,'|',`PIDPAT`,'|',`TITLE`,'|',`NAMEPAT`,'|',`DOB`,'|',`SEX`,'|',`MARRIAGE`,'|',`CHANGWAT`,'|',`AMPHUR`,'|',`NATION`,'|',`AdmType`,'|',`AdmSource`,'|',`DTAdm`,'|',`DTDisch`,'|',`LeaveDay`,'|',`DischStat`,'|',`DischType`,'|',`AdmWt`,'|',`DischWard`,'|',`Dept`) AS `ipadt`,`AN`, `Invoice`, `RECEIPT_DATE`, `ServiceType` FROM `aipn_ipadt` WHERE `AN` = :an";
         $stmt = $db_conn->prepare($sql);
-        $stmt->execute();
+        $stmt->execute(array("an" => $this->an));
         $this->aipn_ipadt = $stmt->fetch();
-		$this->AN = $this->aipn_ipadt['AN'];
+		$this->an = $this->aipn_ipadt['AN'];
 		$this->invoice_no = $this->aipn_ipadt['Invoice'];
 		$this->receipt_date = $this->aipn_ipadt['RECEIPT_DATE'];
 		$this->service_type = $this->aipn_ipadt['ServiceType'];
@@ -148,9 +148,9 @@ class cipn_xlm {
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
         );
         $db_conn = new PDO($dsn, $username, $password, $options);
-        $sql = "SELECT concat(`sequence`,'|',`DxType`,'|',`CodeSys`,'|',`Code`,'|',`DiagTerm`,'|',`DR`,'|',`DateDiag`) AS `ipdx` FROM `aipn_ipdx`";
+        $sql = "SELECT concat(`DxType`,'|',`CodeSys`,'|',`Code`,'|',`DiagTerm`,'|',`DR`,'|',`DateDiag`) AS `ipdx`,`AN` FROM `aipn_ipdx` WHERE `AN` = :an order by DxType";
         $stmt = $db_conn->prepare($sql);
-		$stmt->execute();
+		$stmt->execute(array("an" => $this->an));
         $rec_count = $stmt->rowCount();
         $this->aipn_ipdx = $stmt->fetchAll();
         return $rec_count;
@@ -168,9 +168,9 @@ class cipn_xlm {
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
         );
         $db_conn = new PDO($dsn, $username, $password, $options);
-        $sql = "SELECT  concat(`sequence`,'|',`CodeSys`,'|',`Code`,'|',`ProcTerm`,'|',`DR`,'|',`DateIn`,'|',`DateOut`,'|',`Location`) AS `ipop` FROM `aipn_ipop` ";
+        $sql = "SELECT  concat(`CodeSys`,'|',`Code`,'|',`ProcTerm`,'|',`DR`,'|',`DateIn`,'|',`DateOut`,'|',`Location`) AS `ipop` ,`AN` FROM `aipn_ipop` WHERE `AN` = :an";
         $stmt = $db_conn->prepare($sql);
-		$stmt->execute();
+		$stmt->execute(array("an" => $this->an));
         $rec_count = $stmt->rowCount();
         $this->aipn_ipop = $stmt->fetchAll();
         return $rec_count;
@@ -188,9 +188,9 @@ class cipn_xlm {
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
         );
         $db_conn = new PDO($dsn, $username, $password, $options);
-        $sql = "SELECT CONCAT( `sequence`, '|', `ServDate`, '|', `BillGr`, '|', `LCCode`, '|', `Descript`, '|', `QTY`, '|', `UnitPrice`, '|', `ChargeAmt`, '|', `Discount`, '|', `ProcedureSeq`, '|', `DiagnosisSeq`, '|', `ClaimSys`, '|', `BillGrCS`, '|', `CSCode`, '|', `CodeSys`, '|', `STDCode`, '|', `ClaimCat`, '|', `DateRev`, '|', `ClaimUP`, '|', `ClaimAmt` ) AS `invoices`, `QTY` * `UnitPrice` AS `amount`, `AN` FROM `aipn_billitems` ";
+        $sql = "SELECT CONCAT( `ServDate`, '|', `BillGr`, '|', `LCCode`, '|', `Descript`, '|', `QTY`, '|', `UnitPrice`, '|', `ChargeAmt`, '|', `Discount`, '|', `ProcedureSeq`, '|', `DiagnosisSeq`, '|', `ClaimSys`, '|', `BillGrCS`, '|', `CSCode`, '|', `CodeSys`, '|', `STDCode`, '|', `ClaimCat`, '|', `DateRev`, '|', `ClaimUP`, '|', `ClaimAmt` ) AS `invoices`, `QTY` * `UnitPrice` AS `amount`, `AN`, `ClaimCat` FROM `aipn_billitems` WHERE `AN` = :an";
         $stmt = $db_conn->prepare($sql);
-        $stmt->execute(); 
+        $stmt->execute(array("an" => $this->an));
         $rec_count = $stmt->rowCount();
         $this->aipn_billitems = $stmt->fetchAll();
         return $rec_count;
@@ -241,9 +241,11 @@ class cipn_xlm {
      */
     private function IPDx() {
         $rec_count = $this->get_aipn_ipdx() ;
+		$seq_id = 0;
         $node_value = "\n";
         foreach ($this->aipn_ipdx as $value) {
-            $node_value .= $value['ipdx'] . "\n";
+			$seq_id ++;
+            $node_value .= $seq_id.'|'.$value['ipdx'] . "\n";
         }
         $this->dom->getElementsByTagName('IPDx')->item(0)->setAttribute('Reccount', $rec_count);
         $this->dom->getElementsByTagName('IPDx')->item(0)->nodeValue = $node_value;
@@ -256,9 +258,11 @@ class cipn_xlm {
      */
     private function IPOp() {
         $rec_count = $this->get_aipn_ipop() ;
+		$seq_id = 0;
         $node_value = "\n";
         foreach ($this->aipn_ipop as $value) {
-            $node_value .= $value['ipop'] . "\n";
+			$seq_id ++;
+            $node_value .= $seq_id.'|'.$value['ipop'] . "\n";
         }
 
         $this->dom->getElementsByTagName('IPOp')->item(0)->setAttribute('Reccount', $rec_count);
@@ -274,10 +278,19 @@ class cipn_xlm {
         $node_value = "\n";
         $inv_discount = 0;
 		$inv_total = 0;
-		$inv_totalx = 0;
+		$inv_total_d = 0;
+		$inv_total_x = 0;
+		$seq_id = 0;
         foreach ($this->aipn_billitems as $value) {
-            $node_value .= $value['invoices'] . "\n";
+			$seq_id ++;
+            $node_value .= $seq_id.'|'.$value['invoices'] . "\n";
             $inv_total += $value['amount'];
+			if($value['ClaimCat']=='D'){
+				$inv_total_d += $value['amount'];
+			}else{
+				$inv_total_x += $value['amount'];
+			}
+
         }
 /**		echo('test271');
 		print_r($node_value); */
@@ -286,8 +299,8 @@ class cipn_xlm {
         $this->dom->getElementsByTagName('BillItems')->item(0)->setAttribute('Reccount', $rec_count);
         $this->dom->getElementsByTagName('BillItems')->item(0)->nodeValue = $node_value;
         $this->dom->getElementsByTagName('InvAddDiscount')->item(0)->nodeValue = number_format($inv_discount, 2, '.', '');
-        $this->dom->getElementsByTagName('DRGCharge')->item(0)->nodeValue = number_format($inv_total, 4, '.', ''); // รูปแบบ 0000.0000
-        $this->dom->getElementsByTagName('XDRGClaim')->item(0)->nodeValue = number_format($inv_totalx, 4, '.', ''); // รูปแบบ 0000.0000
+        $this->dom->getElementsByTagName('DRGCharge')->item(0)->nodeValue = number_format($inv_total_d, 4, '.', ''); // รูปแบบ 0000.0000
+        $this->dom->getElementsByTagName('XDRGClaim')->item(0)->nodeValue = number_format($inv_total_x, 4, '.', ''); // รูปแบบ 0000.0000
     }
 
 
@@ -297,8 +310,8 @@ class cipn_xlm {
      * @return string hash_value ของไฟล์
      */
     private function convert_xml() {
-        $file_read = fopen($this->file_name . '-utf8.xml', "r") or die("Unable to open file!");
-        $file_write = fopen($this->file_name . '.txt', "w") or die("Unable to open file!");
+        $file_read = fopen('XMLFiles/'.$this->file_name . '-utf8.xml', "r") or die("Unable to open file!");
+        $file_write = fopen('TXTFiles/'.$this->file_name . '.txt', "w") or die("Unable to open file!");
         fgets($file_read); //อ่านบรรทัดแรกก่อน
         while (!feof($file_read)) {
             $str_line = trim(fgets($file_read), "\n");
@@ -308,7 +321,7 @@ class cipn_xlm {
         }
         fclose($file_read);
         fclose($file_write);
-        return hash_file("md5", $this->file_name . ".txt");
+        return hash_file("md5", 'TXTFiles/'.$this->file_name . ".txt");
     }
 
     /**
@@ -316,8 +329,8 @@ class cipn_xlm {
      * @access private
      */
     private function create_xml($str_hash) {
-        $file_read = fopen($this->file_name . '.txt', "r") or die("Unable to open file!");
-        $file_write = fopen($this->file_name . '.xml', "w") or die("Unable to open file!");
+        $file_read = fopen('TXTFiles/'.$this->file_name . '.txt', "r") or die("Unable to open file!");
+        $file_write = fopen('XMLFiles/'.$this->file_name . '.xml', "w") or die("Unable to open file!");
         fwrite($file_write, '<?xml version="1.0" encoding="windows-874"?>');
         while (!feof($file_read)) {
             fwrite($file_write, fgets($file_read));
@@ -330,9 +343,9 @@ class cipn_xlm {
      * @access private
      */
     public function save() {
-        $this->file_name = '14354-AIPN-' . $this->AN . '-' . $this->file_datetime->format('YmdHis');
+        $this->file_name = '14354-AIPN-' . $this->an . '-' . $this->file_datetime->format('YmdHis');
 		$this->zip_name = '14354AIPN';
-        $this->dom->save($this->file_name . '-utf8.xml');
+        $this->dom->save('XMLFiles/'.$this->file_name . '-utf8.xml');
         $this->create_xml($this->convert_xml());
     }
 
@@ -346,7 +359,7 @@ class cipn_xlm {
 		//$this->zip_name = $this->zip_name.$id;
         $zip_path = 'download/'.$this->zip_name . '.zip';
         $zip->open($zip_path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
-		$zip->addFile($this->file_name.'.xml');
+		$zip->addFile('XMLFiles/'.$this->file_name.'.xml',$this->file_name.'.xml');
 		$zip->close();
         return $zip_path;
     }

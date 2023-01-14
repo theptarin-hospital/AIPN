@@ -19,21 +19,23 @@ $objQuery = mysqli_query($objConnect,$strSQL);
 
 $strSQL = "delete from aipn_ipdx";
 $objQuery = mysqli_query($objConnect,$strSQL);
+$strSQL = "alter table aipn_ipdx drop sequence";
+$objQuery = mysqli_query($objConnect,$strSQL);
 
 $strSQL = "delete from aipn_ipop";
 $objQuery = mysqli_query($objConnect,$strSQL);
-$strSQL = "ALTER TABLE aipn_ipop AUTO_INCREMENT = 0;";
+$strSQL = "alter table aipn_ipop drop sequence";
 $objQuery = mysqli_query($objConnect,$strSQL);
+
 
 $strSQL = "delete from aipn_billitems";
 $objQuery = mysqli_query($objConnect,$strSQL);
-$strSQL = "ALTER TABLE aipn_billitems AUTO_INCREMENT = 0;";
+$strSQL = "alter table aipn_billitems drop sequence";
 $objQuery = mysqli_query($objConnect,$strSQL);
 
 // import for aipn_ipadt
 $objCSV = fopen("C:\\AIPN_CSV\\DATA01_IPADT.csv", "r");
 $headerLine = true; //กำหนดค่า headerline เพื่อไม่ต้องนำเข้า header ของไฟล์ CSV
-
 while (($objArr = fgetcsv($objCSV, 1000, ",")) !== FALSE) {
 	if($headerLine) {$headerLine = false;}
 	else{
@@ -208,6 +210,7 @@ echo "นำเข้าข้อมูล  DATA02_ICD.csv สำหรับ ai
 // import for BillItems
 $objCSV = fopen("C:\\AIPN_CSV\\DATA03_BillItems.csv", "r");
 $headerLine = true; //กำหนดค่า headerline เพื่อไม่ต้องนำเข้า header ของไฟล์ CSV
+
 while (($objArr = fgetcsv($objCSV, 1000, ",")) !== FALSE) {
 	if($headerLine) {$headerLine = false;}
 	else{
@@ -228,23 +231,30 @@ $objQuery = mysqli_query($objConnect,$strSQL);
 
 echo "ปรับปรุงข้อมูล Done. <br>";
 
-//เริ่มอ่าน IPADT
-$strSQL = "select * from aipn_ipadt";
+// สร้าง Sequence no สำหรับ ipdx ipop billitem
+$strSQL = "alter table aipn_ipdx add column sequence int , order by DxType";
 $objQuery = mysqli_query($objConnect,$strSQL);
-$row_ = mysqli_fetch_all($objQuery, MYSQLI_ASSOC);
-foreach($row_ as $val){
-//	echo($val['AN'].' : ');
-	echo(' HN = '.$val['HN'].' AN = '.$val['AN'].' : ');
 
+$strSQL = "SET @rank=0";
+$objQuery = mysqli_query($objConnect,$strSQL);
+$strSQL = "update aipn_ipdx set sequence = @rank:=@rank+1";
+$objQuery = mysqli_query($objConnect,$strSQL);
 
+$strSQL = "alter table aipn_ipop add column sequence int auto_increment primary key";
+$objQuery = mysqli_query($objConnect,$strSQL);
 
-/**$strSQL = "select * from aipn_running";
+$strSQL = "alter table aipn_billitems add column sequence int auto_increment primary key";
+$objQuery = mysqli_query($objConnect,$strSQL);
+
+echo "สร้าง ลำดับที่  Done. <br>";
+
+$strSQL = "select * from aipn_running";
 $objQuery = mysqli_query($objConnect,$strSQL);
 $row_ = mysqli_fetch_all($objQuery, MYSQLI_ASSOC);
 foreach($row_ as $row){
     echo 'ไฟล์ส่ง AIPN ครั้งก่อน 14354AIPN';	
 	echo($row['last_number']);
-} */
+}
 
 
 //$strSQL = "update aipn_running set last_number = last_number:=last_number+1";
@@ -257,7 +267,7 @@ echo ' ไฟล์เบิกประกันสังคม AIPN ';
 $last_number = $row['last_number'] + 1;
 //$id = '1000'.$last_number;
 $id = $last_number;
-$my = new cipn_xlm($val['AN']);
+$my = new cipn_xlm('5800001');
 $my->save();
 $link= "http://localhost/PhataraAIPN/".$my->save_zip($id);
 //$my->save_zip($id);
@@ -268,10 +278,9 @@ $objQuery = mysqli_query($objConnect,$strSQL);
 // ปรับค่า จาก 99999 เป็น ค่าเริ่มต้น 10000
 $strSQL = "update aipn_running set last_number =if(last_number =99999,10000,last_number)";
 $objQuery = mysqli_query($objConnect,$strSQL);
-echo '<a href="'.$link.'">'. $link .'</a><br>';
-}
+
 ?>
-        <!--<a href="<?php echo $link;?>"><?php echo $link;?></a>-->
+        <a href="<?php echo $link;?>"><?php echo $link;?></a>
 
 </table>
 </body>
