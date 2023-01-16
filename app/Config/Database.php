@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => '',
-        'password' => '',
-        'database' => '',
+        'hostname' => '10.1.88.6',
+        'username' => 'tcds',
+        'password' => 'tcds',
+        'database' => 'tcds',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
