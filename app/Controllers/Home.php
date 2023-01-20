@@ -8,11 +8,15 @@ use App\Libraries\Aipn\XmlDocument;
 class Home extends BaseController {
 
     public function index() {
-        $AIPN = new XmlDocument();
-        echo 'TEST--->' . $AIPN->sayHi();
-        $model = new UserModel();
-        print_r($model->facthExample());
-        echo 'testing index';
+        $aipn = new XmlDocument();
+        $aipn->setHeader();
+        $aipn->setClaimAuth();
+        $aipn->save();
+        print_r($aipn->Document);
+        echo 'TEST--->' . $aipn->sayHi();
+        //$model = new UserModel();
+        //print_r($model->facthExample());
+        //echo 'testing index';
         return view('welcome_message');
     }
 

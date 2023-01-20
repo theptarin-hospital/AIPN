@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <CIPN>
+  <Header>
+    <DocClass></DocClass>
+    <DocSysID version="2.1"></DocSysID>
+    <serviceEvent></serviceEvent>
+    <authorID></authorID>
+    <authorName></authorName>
+    <effectiveTime></effectiveTime>
+  </Header>
+  <ClaimAuth>
+    <AuthCode></AuthCode>
+    <AuthDT></AuthDT>
+    <UPayPlan></UPayPlan>
+    <ServiceType></ServiceType>
+    <ProjectCode></ProjectCode>
+    <EventCode></EventCode>
+    <UserReserve></UserReserve>
+    <Hmain></Hmain>
+    <Hcare></Hcare>
+    <CareAs></CareAs>
+    <ServiceSubType></ServiceSubType>
+  </ClaimAuth>
+  <IPADT>
+</IPADT>
+  <IPDx Reccount="0"></IPDx>
+  <IPOp Reccount="0"></IPOp>
+  <Invoices>
+    <InvNumber></InvNumber>
+    <InvDT></InvDT>
+    <BillItems Reccount="0"></BillItems>
+      <InvAddDiscount></InvAddDiscount>
+      <DRGCharge></DRGCharge>
+      <XDRGClaim></XDRGClaim>
+  </Invoices>
+  <CoInsurance>
+  </CoInsurance>
+</CIPN>
