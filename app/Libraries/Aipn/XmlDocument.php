@@ -5,14 +5,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
  */
 
-namespace App\Libraries;
+namespace App\Libraries\Aipn;
 
 /**
  * Description of AIPNDocument
  *
  * @author it
  */
-class AIPNDocument {
+class XmlDocument extends \DOMDocument {
 
     public function sayHi() {
         return "AIPN Hello World!";
