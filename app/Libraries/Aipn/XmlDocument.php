@@ -1,60 +1,66 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 namespace App\Libraries\Aipn;
 
 use DOMDocument;
 use DateTime;
 
 /**
- * Description of AIPNDocument
- *
- * @author it
+ * 1. สร้าง AIPN XML ด้วย DomDocument('1.0', 'utf-8')
+ * 2. สร้างแต่ละส่วนของ xml
+ * 3. แปลงไฟล์ utf-8 เป็น windows-874
+ * @author suchart bunhachirat <suchartbu@gmail.com>
+ * @link https://drive.google.com/file/d/1RL-iuL4bNWE8wzkCB_EcR6yf18EmGWlr/view?usp=share_link
  */
 class XmlDocument {
 
-    public $Document;
-    public $an = 123456;
-    private $DateTime;
+    /**
+     * DOMDocument Object
+     * @var DOMDocument
+     */
+    public $document = null;
+    public $an = null;
 
-    public function __construct($version = '1.0', $encoding = 'utf-8') {
-        $this->setDocument($version, $encoding);
+    /**
+     * @var DateTime
+     */
+    private $DateTime = null;
+
+    public function __construct($an) {
+        $this->an = $an;
+        $this->setDocument('1.0', 'utf-8');
     }
 
     public function setDocument($version, $encoding) {
-        $this->Document = new DOMDocument($version, $encoding);
-        $this->Document->preserveWhiteSpace = false;
-        $this->Document->formatOutput = true;
-        $this->Document->load('aipn_utf8.xml');
+        $this->document = new DOMDocument($version, $encoding);
+        $this->document->preserveWhiteSpace = false;
+        $this->document->formatOutput = true;
+        $this->document->load('aipn_utf8.xml');
     }
 
     public function setHeader() {
-        $this->Document->getElementsByTagName('DocClass')->item(0)->nodeValue = 'IPClaim';
-        $this->Document->getElementsByTagName('DocSysID')->item(0)->nodeValue = 'AIPN';
-        $this->Document->getElementsByTagName('serviceEvent')->item(0)->nodeValue = 'ADT';
-        $this->Document->getElementsByTagName('authorID')->item(0)->nodeValue = '14354';
-        $this->Document->getElementsByTagName('authorName')->item(0)->nodeValue = 'รพ.ภัทร-ธนบุรี';
+        $this->document->getElementsByTagName('DocClass')->item(0)->nodeValue = 'IPClaim';
+        $this->document->getElementsByTagName('DocSysID')->item(0)->nodeValue = 'AIPN';
+        $this->document->getElementsByTagName('serviceEvent')->item(0)->nodeValue = 'ADT';
+        $this->document->getElementsByTagName('authorID')->item(0)->nodeValue = '14354';
+        $this->document->getElementsByTagName('authorName')->item(0)->nodeValue = 'รพ.ภัทร-ธนบุรี';
         /* prantip    $this->dom->getElementsByTagName('DocumentRef')->item(0)->nodeValue = $this->an; */
         $this->DateTime = new DateTime();
-        $this->Document->getElementsByTagName('effectiveTime')->item(0)->nodeValue = $this->DateTime->format('Y-m-d\TH:i:s');
+        $this->document->getElementsByTagName('effectiveTime')->item(0)->nodeValue = $this->DateTime->format('Y-m-d\TH:i:s');
     }
 
     public function setClaimAuth() {
-        $this->Document->getElementsByTagName('UPayPlan')->item(0)->nodeValue = '80';
+        $this->document->getElementsByTagName('UPayPlan')->item(0)->nodeValue = '80';
         //$this->Document->getElementsByTagName('ServiceType')->item(0)->nodeValue = $this->service_type;
-        $this->Document->getElementsByTagName('Hmain')->item(0)->nodeValue = '14354';
-        $this->Document->getElementsByTagName('Hcare')->item(0)->nodeValue = '14354';
-        $this->Document->getElementsByTagName('CareAs')->item(0)->nodeValue = 'M';
+        $this->document->getElementsByTagName('Hmain')->item(0)->nodeValue = '14354';
+        $this->document->getElementsByTagName('Hcare')->item(0)->nodeValue = '14354';
+        $this->document->getElementsByTagName('CareAs')->item(0)->nodeValue = 'M';
     }
 
     public function save() {
         $this->file_name = '14354-AIPN-' . $this->an . '-' . $this->DateTime->format('YmdHis');
         //$this->zip_name = '14354AIPN';
-        $this->Document->save('XMLFiles/' . $this->file_name . '-utf8.xml');
+        $this->document->save('XMLFiles/' . $this->file_name . '-utf8.xml');
         $this->create_xml($this->convert_xml());
     }
 
