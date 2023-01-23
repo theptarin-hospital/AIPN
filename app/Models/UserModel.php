@@ -14,7 +14,7 @@ use CodeIgniter\Model;
  *
  * @author it
  */
-class UserModel extends Model {
+class AipnModel extends Model {
 
     //put your code here
     public function facthExample() {

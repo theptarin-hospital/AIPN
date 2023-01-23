@@ -2,21 +2,24 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Models\AipnModel;
 use App\Libraries\Aipn\XmlDocument;
 
 class Home extends BaseController {
 
     public function index() {
-        $aipn = new XmlDocument('987654321');
+        $an = '652225702';
+        $model = new AipnModel();
+        $row_ = $model->facthIpadt($an);
+        $aipn = new XmlDocument($an);
         $aipn->setHeader();
         $aipn->setClaimAuth();
+        $aipn->setIPADT($row_['ipadt']);
         $aipn->save();
         print_r($aipn->document);
         echo 'TEST--->' . $aipn->sayHi();
-        //$model = new UserModel();
-        //print_r($model->facthExample());
-        //echo 'testing index';
+//        $model = new AipnModel();
+//        print_r($model->facthIpadt($an));
         return view('welcome_message');
     }
 

@@ -68,7 +68,7 @@ class XmlDocument {
      * @param string $node_value
      */
     public function setIPADT(string $node_value) {
-        $this->dom->getElementsByTagName('IPADT')->item(0)->nodeValue = $node_value;
+        $this->document->getElementsByTagName('IPADT')->item(0)->nodeValue = $node_value;
     }
 
     /**
