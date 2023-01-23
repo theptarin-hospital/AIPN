@@ -3,11 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\AipnModel;
-use App\Libraries\Aipn\XmlDocument;
+use App\Libraries\Aipn\Aipn;
 
 class Home extends BaseController {
 
     public function index() {
+        $an = '652225702';
+        $aipn = new Aipn($an);
+        return view('welcome_message');
+    }
+    
+    public function index_() {
         $an = '652225702';
         $model = new AipnModel();
         $row_ = $model->facthIpadt($an);
