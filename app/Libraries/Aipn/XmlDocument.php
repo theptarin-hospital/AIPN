@@ -24,7 +24,7 @@ class XmlDocument {
     /**
      * @var DateTime
      */
-    private $DateTime = null;
+    private $CreateDateTime = null;
 
     public function __construct($an) {
         $this->an = $an;
@@ -38,27 +38,57 @@ class XmlDocument {
         $this->document->load('aipn_utf8.xml');
     }
 
+    /**
+     * เนื้อหาส่วน:header
+     * ข้อมูลเกี่ยวข้องกับประเภทเอกสาร และผู้จัดทำเอกสาร เป็นส่วนให้ข้อมูลหน่วยงาน เวลา และประเภท
+     */
     public function setHeader() {
+        $this->CreateDateTime = new DateTime();
         $this->document->getElementsByTagName('DocClass')->item(0)->nodeValue = 'IPClaim';
         $this->document->getElementsByTagName('DocSysID')->item(0)->nodeValue = 'AIPN';
         $this->document->getElementsByTagName('serviceEvent')->item(0)->nodeValue = 'ADT';
-        $this->document->getElementsByTagName('authorID')->item(0)->nodeValue = '14354';
-        $this->document->getElementsByTagName('authorName')->item(0)->nodeValue = 'รพ.ภัทร-ธนบุรี';
-        /* prantip    $this->dom->getElementsByTagName('DocumentRef')->item(0)->nodeValue = $this->an; */
-        $this->DateTime = new DateTime();
-        $this->document->getElementsByTagName('effectiveTime')->item(0)->nodeValue = $this->DateTime->format('Y-m-d\TH:i:s');
+        $this->document->getElementsByTagName('authorID')->item(0)->nodeValue = '11720';
+        $this->document->getElementsByTagName('authorName')->item(0)->nodeValue = 'รพ.เทพธารินทร์';
+        $this->document->getElementsByTagName('effectiveTime')->item(0)->nodeValue = $this->CreateDateTime->format('Y-m-d\TH:i:s');
     }
 
+    /**
+     * เนื้อหาส่วน:ClaimAuth
+     * เป็นส่วนให้ข้อมูลการอนุมัติ บัญชีการเบิกจ่าย สถานพยาบาล และประเภทสถานพยาบาลที่รักษา
+     */
     public function setClaimAuth() {
         $this->document->getElementsByTagName('UPayPlan')->item(0)->nodeValue = '80';
-        //$this->Document->getElementsByTagName('ServiceType')->item(0)->nodeValue = $this->service_type;
-        $this->document->getElementsByTagName('Hmain')->item(0)->nodeValue = '14354';
-        $this->document->getElementsByTagName('Hcare')->item(0)->nodeValue = '14354';
+        $this->document->getElementsByTagName('Hmain')->item(0)->nodeValue = '11720';
+        $this->document->getElementsByTagName('Hcare')->item(0)->nodeValue = '11720';
         $this->document->getElementsByTagName('CareAs')->item(0)->nodeValue = 'M';
     }
 
+    /**
+     * ข้อมูลผู้ป่วย และ ID ต่างๆ วันรับ/จำหน่าย และที่เกี่ยวกันการรับเป็นผู้ป่วยใน
+     * @param string $node_value
+     */
+    public function setIPADT(string $node_value) {
+        $this->dom->getElementsByTagName('IPADT')->item(0)->nodeValue = $node_value;
+    }
+
+    /**
+     * ข้อมูลการวินิจฉัย รหัสโรค ICD10
+     * @param array $row_
+     */
+    public function setIPDx(array $row_) {
+//        $rec_count = $this->get_aipn_ipdx();
+        $seq_id = 0;
+        $node_value = "\n";
+        foreach ($row_ as $value) {
+            $seq_id++;
+            $node_value .= $seq_id . '|' . $value['ipdx'] . "\n";
+        }
+        $this->dom->getElementsByTagName('IPDx')->item(0)->setAttribute('Reccount', $rec_count);
+        $this->dom->getElementsByTagName('IPDx')->item(0)->nodeValue = $node_value;
+    }
+
     public function save() {
-        $this->file_name = '14354-AIPN-' . $this->an . '-' . $this->DateTime->format('YmdHis');
+        $this->file_name = '14354-AIPN-' . $this->an . '-' . $this->CreateDateTime->format('YmdHis');
         //$this->zip_name = '14354AIPN';
         $this->document->save('XMLFiles/' . $this->file_name . '-utf8.xml');
         $this->create_xml($this->convert_xml());
