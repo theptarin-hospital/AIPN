@@ -19,7 +19,13 @@ class XmlDocument {
      * @var DOMDocument
      */
     public $document = null;
-    public $an = null;
+    protected $an = null;
+
+    /**
+     * IPADT 
+     * @var array
+     */
+    private $ipadt_ = null;
 
     /**
      * @var DateTime
@@ -55,20 +61,23 @@ class XmlDocument {
     /**
      * เนื้อหาส่วน:ClaimAuth
      * เป็นส่วนให้ข้อมูลการอนุมัติ บัญชีการเบิกจ่าย สถานพยาบาล และประเภทสถานพยาบาลที่รักษา
+     * @param array $row_ ipadt data
      */
-    public function setClaimAuth() {
+    public function setClaimAuth(array $row_) {
+        $this->ipadt_ = $row_;
         $this->document->getElementsByTagName('UPayPlan')->item(0)->nodeValue = '80';
+        $this->document->getElementsByTagName('ServiceType')->item(0)->nodeValue = $this->ipadt_['ServiceType'];
         $this->document->getElementsByTagName('Hmain')->item(0)->nodeValue = '11720';
         $this->document->getElementsByTagName('Hcare')->item(0)->nodeValue = '11720';
         $this->document->getElementsByTagName('CareAs')->item(0)->nodeValue = 'M';
+        $this->setIPADT();
     }
 
     /**
      * ข้อมูลผู้ป่วย และ ID ต่างๆ วันรับ/จำหน่าย และที่เกี่ยวกันการรับเป็นผู้ป่วยใน
-     * @param string $node_value
      */
-    public function setIPADT(string $node_value) {
-        $this->document->getElementsByTagName('IPADT')->item(0)->nodeValue = $node_value;
+    private function setIPADT() {
+        $this->document->getElementsByTagName('IPADT')->item(0)->nodeValue = $this->ipadt_['ipadt'];
     }
 
     /**
@@ -76,7 +85,6 @@ class XmlDocument {
      * @param array $results_
      */
     public function setIPDx(array $results_) {
-//        print_r($results_);
         $seq_id = 0;
         $node_value = PHP_EOL;
         foreach ($results_ as $row_) {
@@ -85,6 +93,45 @@ class XmlDocument {
         }
         $this->document->getElementsByTagName('IPDx')->item(0)->setAttribute('Reccount', $seq_id);
         $this->document->getElementsByTagName('IPDx')->item(0)->nodeValue = $node_value;
+    }
+
+    /**
+     * ข้อมูลการทำหัตถการและการผ่าตัด ICD9
+     * @param array $results_
+     */
+    public function setIPOp(array $results_) {
+        $seq_id = 0;
+        $node_value = PHP_EOL;
+        foreach ($results_ as $row_) {
+            $seq_id++;
+            $node_value .= $seq_id . '|' . $row_['ipop'] . PHP_EOL;
+        }
+        $this->document->getElementsByTagName('IPOp')->item(0)->setAttribute('Reccount', $seq_id);
+        $this->document->getElementsByTagName('IPOp')->item(0)->nodeValue = $node_value;
+    }
+
+    protected function setInvoices($results_) {
+        $node_value = PHP_EOL;
+        $inv_ = ['total' => 0, 'total_d' => 0, 'total_x' => 0, 'discount' => 0];
+        $seq_id = 0;
+        foreach ($results_ as $row_) {
+            $seq_id++;
+            $node_value .= $seq_id . '|' . $row_['invoices'] . PHP_EOL;
+            $inv_['total'] += $row_['amount'];
+            $inv_['discount'] += $row_['discount'];
+            if ($row_['ClaimCat'] == 'D') {
+                $inv_['total_d'] += $row_['amount'];
+            } else {
+                $inv_['total_x'] += $row_['amount'];
+            }
+        }
+        $this->document->getElementsByTagName('InvNumber')->item(0)->nodeValue = $this->ipadt_['Invoice']; //เลข Invoice ขนาดไม่เกิน 9 ตัวอักษร
+        $this->document->getElementsByTagName('InvDT')->item(0)->nodeValue = $this->ipadt_['RECEIPT_DATE']; //วันเวลาที่ออก Invoice รูปแบบ YYYYMMDD
+        $this->document->getElementsByTagName('BillItems')->item(0)->setAttribute('Reccount', $seq_id);
+        $this->document->getElementsByTagName('BillItems')->item(0)->nodeValue = $node_value;
+        $this->document->getElementsByTagName('InvAddDiscount')->item(0)->nodeValue = number_format($inv_['discount'], 2, '.', '');
+        $this->document->getElementsByTagName('DRGCharge')->item(0)->nodeValue = number_format($inv_['total_d'], 4, '.', ''); // รูปแบบ 0000.0000
+        $this->document->getElementsByTagName('XDRGClaim')->item(0)->nodeValue = number_format($inv_['total_x'], 4, '.', ''); // รูปแบบ 0000.0000
     }
 
     public function save() {
@@ -117,10 +164,6 @@ class XmlDocument {
             fwrite($file_write, fgets($file_read));
         }
         fwrite($file_write, '<?EndNote HMAC = "' . $str_hash . '" ?>');
-    }
-
-    public function sayHi() {
-        return "AIPN Hello World!";
     }
 
 }

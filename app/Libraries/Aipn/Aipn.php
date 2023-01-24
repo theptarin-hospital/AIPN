@@ -15,24 +15,26 @@ class Aipn extends XmlDocument {
 
     public function __construct($an) {
         try {
+            parent::__construct($an);
+            $this->setHeader();
             $model = new AipnModel();
             $ipadt_row_ = $model->facthIpadt($an);
             if (is_null($ipadt_row_)) {
                 throw new Exception('AN ไม่มี');
             }
-            parent::__construct($an);
-            $this->setHeader();
-            $this->setClaimAuth();
-            $this->setIPADT($ipadt_row_['ipadt']);
-            $this->setIPDx($model->facthIpdx($an));
-//            $this->setIPOp($row_);
-//            $this->setInvoices($row_);
-            $this->save();
+            $this->setClaimAuth($ipadt_row_);
+            $this->setIPDx($model->facthIpdx($this->an));
+            $this->setIPOp($model->facthIpop($this->an));
+            $this->setInvoices($model->facthBillitems($this->an));
         } catch (Exception $exc) {
             echo $exc->getMessage();
         } finally {
             
         }
+    }
+
+    public function save() {
+        parent::save();
     }
 
 }

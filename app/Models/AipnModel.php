@@ -35,22 +35,31 @@ class AipnModel extends Model {
                     'an' => $an,
                 ])->getResultArray();
     }
-    
-    
+
+    /**
+     * ข้อมูลการทำหัตถการและการผ่าตัด ICD9
+     * @param string $an AN.
+     * @return array getResultArray()
+     */
     public function facthIpop(string $an) {
         $sql = "SELECT  concat(`CodeSys`,'|',`Code`,'|',`ProcTerm`,'|',`DR`,'|',`DateIn`,'|',`DateOut`,'|',`Location`) AS `ipop` ,`AN` FROM `aipn_ipop` WHERE `AN` = :an:";
         $db = Database::connect();
         return $db->query($sql, [
                     'an' => $an,
-                ])->getRowArray();
+                ])->getResultArray();
     }
 
+    /**
+     * ข้อมูลค่ารักษาทุกรายการ
+     * @param string $an AN.
+     * @return array getResultArray()
+     */
     public function facthBillitems(string $an) {
-        $sql = "SELECT CONCAT( `ServDate`, '|', `BillGr`, '|', `LCCode`, '|', `Descript`, '|', `QTY`, '|', `UnitPrice`, '|', `ChargeAmt`, '|', `Discount`, '|', `ProcedureSeq`, '|', `DiagnosisSeq`, '|', `ClaimSys`, '|', `BillGrCS`, '|', `CSCode`, '|', `CodeSys`, '|', `STDCode`, '|', `ClaimCat`, '|', `DateRev`, '|', `ClaimUP`, '|', `ClaimAmt` ) AS `invoices`, `QTY` * `UnitPrice` AS `amount`, `AN`, `ClaimCat` FROM `aipn_billitems` WHERE `AN` = :an:";
+        $sql = "SELECT CONCAT( `ServDate`, '|', `BillGr`, '|', `LCCode`, '|', `Descript`, '|', `QTY`, '|', `UnitPrice`, '|', `ChargeAmt`, '|', `Discount`, '|', `ProcedureSeq`, '|', `DiagnosisSeq`, '|', `ClaimSys`, '|', `BillGrCS`, '|', `CSCode`, '|', `CodeSys`, '|', `STDCode`, '|', `ClaimCat`, '|', `DateRev`, '|', `ClaimUP`, '|', `ClaimAmt` ) AS `invoices`, `QTY` * `UnitPrice` AS `amount`,`Discount` AS `discount`, `AN`, `ClaimCat` FROM `aipn_billitems` WHERE `AN` = :an:";
         $db = Database::connect();
         return $db->query($sql, [
                     'an' => $an,
-                ])->getRowArray();
+                ])->getResultArray();
     }
 
 }
