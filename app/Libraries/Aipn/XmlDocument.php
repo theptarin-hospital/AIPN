@@ -73,18 +73,18 @@ class XmlDocument {
 
     /**
      * ข้อมูลการวินิจฉัย รหัสโรค ICD10
-     * @param array $row_
+     * @param array $results_
      */
-    public function setIPDx(array $row_) {
-//        $rec_count = $this->get_aipn_ipdx();
+    public function setIPDx(array $results_) {
+//        print_r($results_);
         $seq_id = 0;
-        $node_value = "\n";
-        foreach ($row_ as $value) {
+        $node_value = PHP_EOL;
+        foreach ($results_ as $row_) {
             $seq_id++;
-            $node_value .= $seq_id . '|' . $value['ipdx'] . "\n";
+            $node_value .= $seq_id . '|' . $row_['ipdx'] . PHP_EOL;
         }
-        $this->dom->getElementsByTagName('IPDx')->item(0)->setAttribute('Reccount', $rec_count);
-        $this->dom->getElementsByTagName('IPDx')->item(0)->nodeValue = $node_value;
+        $this->document->getElementsByTagName('IPDx')->item(0)->setAttribute('Reccount', $seq_id);
+        $this->document->getElementsByTagName('IPDx')->item(0)->nodeValue = $node_value;
     }
 
     public function save() {

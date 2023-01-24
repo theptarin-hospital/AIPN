@@ -21,8 +21,7 @@
         <CareAs></CareAs>
         <ServiceSubType></ServiceSubType>
     </ClaimAuth>
-    <IPADT>
-    </IPADT>
+    <IPADT></IPADT>
     <IPDx Reccount="0"></IPDx>
     <IPOp Reccount="0"></IPOp>
     <Invoices>
@@ -33,6 +32,5 @@
         <DRGCharge></DRGCharge>
         <XDRGClaim></XDRGClaim>
     </Invoices>
-    <CoInsurance>
-    </CoInsurance>
+    <CoInsurance></CoInsurance>
 </CIPN>

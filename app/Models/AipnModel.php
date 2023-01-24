@@ -10,6 +10,11 @@ use CodeIgniter\Model;
  */
 class AipnModel extends Model {
 
+    /**
+     * ข้อมูลเกี่ยวกับผู้ป่วยใน
+     * @param string $an AN.
+     * @return array getRowArray()
+     */
     public function facthIpadt(string $an) {
         $sql = "SELECT concat(`AN`,'|',`HN`,'|',`IDTYPE`,'|',`PIDPAT`,'|',`TITLE`,'|',`NAMEPAT`,'|',`DOB`,'|',`SEX`,'|',`MARRIAGE`,'|',`CHANGWAT`,'|',`AMPHUR`,'|',`NATION`,'|',`AdmType`,'|',`AdmSource`,'|',`DTAdm`,'|',`DTDisch`,'|',`LeaveDay`,'|',`DischStat`,'|',`DischType`,'|',`AdmWt`,'|',`DischWard`,'|',`Dept`) AS `ipadt`,`AN`, `Invoice`, `RECEIPT_DATE`, `ServiceType` FROM `aipn_ipadt` WHERE `AN` = :an:";
         $db = Database::connect();
@@ -18,14 +23,20 @@ class AipnModel extends Model {
                 ])->getRowArray();
     }
 
+    /**
+     * ข้อมูลการวินิจฉัยโรค ICD10
+     * @param string $an AN.
+     * @return array getResultArray()
+     */
     public function facthIpdx(string $an) {
         $sql = "SELECT concat(`DxType`,'|',`CodeSys`,'|',`Code`,'|',`DiagTerm`,'|',`DR`,'|',`DateDiag`) AS `ipdx`,`AN` FROM `aipn_ipdx` WHERE `AN` = :an: order by DxType";
         $db = Database::connect();
         return $db->query($sql, [
                     'an' => $an,
-                ])->getRowArray();
+                ])->getResultArray();
     }
-
+    
+    
     public function facthIpop(string $an) {
         $sql = "SELECT  concat(`CodeSys`,'|',`Code`,'|',`ProcTerm`,'|',`DR`,'|',`DateIn`,'|',`DateOut`,'|',`Location`) AS `ipop` ,`AN` FROM `aipn_ipop` WHERE `AN` = :an:";
         $db = Database::connect();
