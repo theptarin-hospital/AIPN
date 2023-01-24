@@ -7,7 +7,7 @@ use App\Libraries\Aipn\Aipn;
 class Home extends BaseController {
 
     public function index() {
-        $an = '652225702';
+        $an = '660062001';
         $aipn = new Aipn($an);
         $aipn->save();
         return view('welcome_message');
