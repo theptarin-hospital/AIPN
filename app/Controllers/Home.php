@@ -11,6 +11,8 @@ class Home extends BaseController {
         $aipn = new Aipn($an);
 //        $aipn->save();
         $aipn->save_zip();
+        echo 'date_default_timezone_get()|' . date_default_timezone_get() . PHP_EOL;
+        echo 'dapp_timezone()|' . app_timezone() . PHP_EOL;
         return view('welcome_message');
     }
 
