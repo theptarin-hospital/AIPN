@@ -14,7 +14,7 @@ use DateTime;
  */
 class XmlDocument {
 
-    public $document = null;
+    protected $document = null;
     protected $hcare_id = '11720';
     protected $hmain_id = '11720';
     protected $hcare_name = 'รพ.เทพธารินทร์';
@@ -36,7 +36,7 @@ class XmlDocument {
      * @var DateTime
      */
     private $effective_time = null;
-    private $file_name = null;
+    protected $file_name = null;
 
     public function __construct($an) {
         $this->an = $an;
@@ -47,10 +47,7 @@ class XmlDocument {
         $this->document = new DOMDocument($version, $encoding);
         $this->document->preserveWhiteSpace = false;
         $this->document->formatOutput = true;
-        /**
-         * path public/
-         */
-        $this->document->load($this->doc_type . '_utf8.xml');
+        $this->document->load($this->doc_type . '_utf8.xml'); //->publc/
     }
 
     /**

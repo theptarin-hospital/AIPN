@@ -3,6 +3,7 @@
 namespace App\Libraries\Aipn;
 
 use Exception;
+use ZipArchive;
 use App\Models\AipnModel;
 use App\Libraries\Aipn\XmlDocument;
 
@@ -34,11 +35,12 @@ class Aipn extends XmlDocument {
     }
 
     public function save_zip($id = 10001) {
+        parent::save();
         $zip = new ZipArchive();
         //$file_name = '14354-AIPN-650827101-20221126165222.xml';
-        $this->zip_name .= $id;
+        $this->zip_name = $id;
         //$this->zip_name = $this->zip_name.$id;
-        $zip_path = 'download/' . $this->zip_name . '.zip';
+        $zip_path = 'ZIPFiles/' . $this->zip_name . '.zip';
         $zip->open($zip_path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
         $zip->addFile('XMLFiles/' . $this->file_name . '.xml', $this->file_name . '.xml');
         $zip->close();
