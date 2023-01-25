@@ -6,7 +6,7 @@ use DOMDocument;
 use DateTime;
 
 /**
- * 1. สร้าง AIPN XML ด้วย DomDocument('1.0', 'utf-8')
+ * 1. สร้าง XML ด้วย DomDocument('1.0', 'utf-8')
  * 2. สร้างแต่ละส่วนของ xml
  * 3. แปลงไฟล์ utf-8 เป็น windows-874
  * @author suchart bunhachirat <suchartbu@gmail.com>
@@ -14,11 +14,16 @@ use DateTime;
  */
 class XmlDocument {
 
+    public $document = null;
+    protected $hcare_id = '11720';
+    protected $hmain_id = '11720';
+    protected $hcare_name = 'รพ.เทพธารินทร์';
+    protected $doc_type = 'AIPN';
+
     /**
      * DOMDocument Object
      * @var DOMDocument
      */
-    public $document = null;
     protected $an = null;
 
     /**
@@ -30,7 +35,8 @@ class XmlDocument {
     /**
      * @var DateTime
      */
-    private $CreateDateTime = null;
+    private $effective_time = null;
+    private $file_name = null;
 
     public function __construct($an) {
         $this->an = $an;
@@ -41,7 +47,10 @@ class XmlDocument {
         $this->document = new DOMDocument($version, $encoding);
         $this->document->preserveWhiteSpace = false;
         $this->document->formatOutput = true;
-        $this->document->load('aipn_utf8.xml');
+        /**
+         * path public/
+         */
+        $this->document->load($this->doc_type . '_utf8.xml');
     }
 
     /**
@@ -49,13 +58,13 @@ class XmlDocument {
      * ข้อมูลเกี่ยวข้องกับประเภทเอกสาร และผู้จัดทำเอกสาร เป็นส่วนให้ข้อมูลหน่วยงาน เวลา และประเภท
      */
     public function setHeader() {
-        $this->CreateDateTime = new DateTime();
+        $this->effective_time = new DateTime();
         $this->document->getElementsByTagName('DocClass')->item(0)->nodeValue = 'IPClaim';
-        $this->document->getElementsByTagName('DocSysID')->item(0)->nodeValue = 'AIPN';
+        $this->document->getElementsByTagName('DocSysID')->item(0)->nodeValue = $this->doc_type;
         $this->document->getElementsByTagName('serviceEvent')->item(0)->nodeValue = 'ADT';
-        $this->document->getElementsByTagName('authorID')->item(0)->nodeValue = '11720';
-        $this->document->getElementsByTagName('authorName')->item(0)->nodeValue = 'รพ.เทพธารินทร์';
-        $this->document->getElementsByTagName('effectiveTime')->item(0)->nodeValue = $this->CreateDateTime->format('Y-m-d\TH:i:s');
+        $this->document->getElementsByTagName('authorID')->item(0)->nodeValue = $this->hcare_id;
+        $this->document->getElementsByTagName('authorName')->item(0)->nodeValue = $this->hcare_name;
+        $this->document->getElementsByTagName('effectiveTime')->item(0)->nodeValue = $this->effective_time->format('Y-m-d\TH:i:s');
     }
 
     /**
@@ -67,8 +76,8 @@ class XmlDocument {
         $this->ipadt_ = $row_;
         $this->document->getElementsByTagName('UPayPlan')->item(0)->nodeValue = '80';
         $this->document->getElementsByTagName('ServiceType')->item(0)->nodeValue = $this->ipadt_['ServiceType'];
-        $this->document->getElementsByTagName('Hmain')->item(0)->nodeValue = '11720';
-        $this->document->getElementsByTagName('Hcare')->item(0)->nodeValue = '11720';
+        $this->document->getElementsByTagName('Hmain')->item(0)->nodeValue = $this->hmain_id;
+        $this->document->getElementsByTagName('Hcare')->item(0)->nodeValue = $this->hcare_id;
         $this->document->getElementsByTagName('CareAs')->item(0)->nodeValue = 'M';
         $this->setIPADT();
     }
@@ -110,7 +119,11 @@ class XmlDocument {
         $this->document->getElementsByTagName('IPOp')->item(0)->nodeValue = $node_value;
     }
 
-    protected function setInvoices($results_) {
+    /**
+     * ข้อมูลค่ารักษาทุกรายการ
+     * @param array $results_
+     */
+    protected function setInvoices(array $results_) {
         $node_value = PHP_EOL;
         $inv_ = ['total' => 0, 'total_d' => 0, 'total_x' => 0, 'discount' => 0];
         $seq_id = 0;
@@ -134,13 +147,19 @@ class XmlDocument {
         $this->document->getElementsByTagName('XDRGClaim')->item(0)->nodeValue = number_format($inv_['total_x'], 4, '.', ''); // รูปแบบ 0000.0000
     }
 
+    /**
+     * บันทึกไฟล์ข้อมูลเปิก
+     */
     public function save() {
-        $this->file_name = '14354-AIPN-' . $this->an . '-' . $this->CreateDateTime->format('YmdHis');
-        //$this->zip_name = '14354AIPN';
+        $this->file_name = $this->hcare_id . '-' . $this->doc_type . '-' . $this->an . '-' . $this->effective_time->format('YmdHis');
         $this->document->save('XMLFiles/' . $this->file_name . '-utf8.xml');
         $this->create_xml($this->convert_xml());
     }
 
+    /**
+     * MD5Hash
+     * @return string EndNote HMAC
+     */
     private function convert_xml() {
         $file_read = fopen('XMLFiles/' . $this->file_name . '-utf8.xml', "r") or die("Unable to open file!");
         $file_write = fopen('TXTFiles/' . $this->file_name . '.txt', "w") or die("Unable to open file!");
@@ -156,7 +175,11 @@ class XmlDocument {
         return hash_file("md5", 'TXTFiles/' . $this->file_name . ".txt");
     }
 
-    private function create_xml($str_hash) {
+    /**
+     * XML windows-874
+     * @param type $str_hash
+     */
+    private function create_xml(string $str_hash) {
         $file_read = fopen('TXTFiles/' . $this->file_name . '.txt', "r") or die("Unable to open file!");
         $file_write = fopen('XMLFiles/' . $this->file_name . '.xml', "w") or die("Unable to open file!");
         fwrite($file_write, '<?xml version="1.0" encoding="windows-874"?>');
