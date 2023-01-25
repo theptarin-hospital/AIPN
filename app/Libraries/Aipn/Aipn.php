@@ -14,6 +14,8 @@ use App\Libraries\Aipn\XmlDocument;
  */
 class Aipn extends XmlDocument {
 
+    protected $zip_name = null;
+
     public function __construct($an) {
         try {
             parent::__construct($an);
@@ -34,12 +36,16 @@ class Aipn extends XmlDocument {
         }
     }
 
+    /**
+     * สร้าง ZIP สำหรับส่งอีเมล์
+     * - กำหนดชื่อไฟล์ HcodeDocTypeSessionNo.Zip
+     * @param type $id
+     * @return string
+     */
     public function save_zip($id = 10001) {
         parent::save();
         $zip = new ZipArchive();
-        //$file_name = '14354-AIPN-650827101-20221126165222.xml';
-        $this->zip_name = $id;
-        //$this->zip_name = $this->zip_name.$id;
+        $this->zip_name = $this->hcare_id . $this->doc_type . $id;
         $zip_path = 'ZIPFiles/' . $this->zip_name . '.zip';
         $zip->open($zip_path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
         $zip->addFile('XMLFiles/' . $this->file_name . '.xml', $this->file_name . '.xml');
