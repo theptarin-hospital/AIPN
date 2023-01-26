@@ -53,7 +53,4 @@ class Aipn extends XmlDocument {
         return $zip_path;
     }
 
-//    public function save() {
-//        parent::save();
-//    }
 }
