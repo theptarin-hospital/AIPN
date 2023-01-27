@@ -7,7 +7,7 @@ use App\Libraries\Aipn\Aipn;
 class Home extends BaseController {
 
     public function index() {
-        $an = '660062001';
+        $an = '654252001';
         $aipn = new Aipn($an);
         $aipn->save_zip();
         echo 'date_default_timezone_get()|' . date_default_timezone_get() . PHP_EOL;
