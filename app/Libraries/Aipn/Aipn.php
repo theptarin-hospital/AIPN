@@ -14,9 +14,12 @@ use App\Libraries\Aipn\XmlDocument;
  */
 class Aipn extends XmlDocument {
 
-    protected $zip_name = null;
+    const ZIP_PATH = 'ZIPFiles/';
 
-    public function __construct($an) {
+    protected $zip_name = null;
+    private $zip_path = null;
+
+    public function __construct(int $an, int $id) {
         try {
             parent::__construct($an);
             $this->setHeader();
@@ -29,6 +32,7 @@ class Aipn extends XmlDocument {
             $this->setIPDx($model->facthIpdx($this->an));
             $this->setIPOp($model->facthIpop($this->an));
             $this->setInvoices($model->facthBillitems($this->an));
+            $this->zip_path = $this->setZip($id);
         } catch (Exception $exc) {
             echo $exc->getMessage();
         } finally {
@@ -42,15 +46,23 @@ class Aipn extends XmlDocument {
      * @param type $id
      * @return string
      */
-    public function save_zip($id = 10001) {
+    public function setZip(int $id) {
         parent::save();
         $zip = new ZipArchive();
         $this->zip_name = $this->hcare_id . $this->doc_type . $id;
-        $zip_path = 'ZIPFiles/' . $this->zip_name . '.zip';
+        $zip_path = self::ZIP_PATH . $this->zip_name . '.zip';
         $zip->open($zip_path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
         $zip->addFile('XMLFiles/' . $this->file_name . '.xml', $this->file_name . '.xml');
         $zip->close();
         return $zip_path;
+    }
+
+    public function getZipPath() {
+        return $this->zip_path;
+    }
+
+    public function getZipUrl() {
+        return 'http://10.1.88.5/AIPN/public/' . $this->getZipPath();
     }
 
 }
