@@ -55,7 +55,7 @@ class AipnModel extends Model {
      * @return array getResultArray()
      */
     public function facthBillitems(string $an) {
-        $sql = "SELECT CONCAT( `ServDate`, '|', `BillGr`, '|', `LCCode`, '|', `Descript`, '|', `QTY`, '|', `UnitPrice`, '|', `ChargeAmt`, '|', `Discount`, '|', `ProcedureSeq`, '|', `DiagnosisSeq`, '|', `ClaimSys`, '|', `BillGrCS`, '|', `CSCode`, '|', `CodeSys`, '|', `STDCode`, '|', `ClaimCat`, '|', `DateRev`, '|', `ClaimUP`, '|', `ClaimAmt` ) AS `invoices`, `QTY` * `UnitPrice` AS `amount`,`Discount` AS `discount`, `AN`, `ClaimCat` FROM `aipn_billitems` WHERE `AN` = :an:";
+        $sql = "SELECT CONCAT( `ServDate`, '|', `BillGr`, '|', `LCCode`, '|', `Descript`, '|', `QTY`, '|', `UnitPrice`, '|', `ChargeAmt`, '|', `Discount`, '|', `ProcedureSeq`, '|', `DiagnosisSeq`, '|', `ClaimSys`, '|', `BillGrCS`, '|', `CSCode`, '|', `CodeSys`, '|', `STDCode`, '|', `ClaimCat`, '|', `DateRev`, '|', `ClaimUP`, '|', `ClaimAmt` ) AS `invoices`, `QTY` * `UnitPrice` AS `amount`, `XDRG` AS `amount_x`,`Discount` AS `discount`, `AN`, `ClaimCat` FROM `aipn_billitems` WHERE `AN` = :an:";
         $db = Database::connect();
         return $db->query($sql, [
                     'an' => $an,

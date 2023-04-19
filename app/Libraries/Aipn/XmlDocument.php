@@ -132,7 +132,7 @@ class XmlDocument {
             if ($row_['ClaimCat'] == 'D') {
                 $inv_['total_d'] += $row_['amount'];
             } else {
-                $inv_['total_x'] += $row_['amount'];
+                $inv_['total_x'] += $row_['amount_x'];
             }
         }
         $this->document->getElementsByTagName('InvNumber')->item(0)->nodeValue = $this->ipadt_['Invoice']; //เลข Invoice ขนาดไม่เกิน 9 ตัวอักษร
