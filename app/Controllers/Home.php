@@ -8,7 +8,7 @@ class Home extends BaseController {
 
     public function index() {
         $an = '660268001';
-        $id = 10032;
+        $id = 10036;
 //        $data_ = ['an' => $an, $id => 'id'];
         $aipn = new Aipn($an, $id);
 //        echo 'GEN : ' . $an . ' Download -> ' . $aipn->getZipUrl();
