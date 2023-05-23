@@ -16,7 +16,7 @@ class XmlDocument {
 
     protected $document = null;
     protected $hcare_id = '11720';
-    protected $hmain_id = '11720';
+    protected $hmain_id = '11800';
     protected $hcare_name = 'รพ.เทพธารินทร์';
     protected $doc_type = 'AIPN';
 
@@ -75,7 +75,7 @@ class XmlDocument {
         $this->document->getElementsByTagName('ServiceType')->item(0)->nodeValue = $this->ipadt_['ServiceType'];
         $this->document->getElementsByTagName('Hmain')->item(0)->nodeValue = $this->hmain_id;
         $this->document->getElementsByTagName('Hcare')->item(0)->nodeValue = $this->hcare_id;
-        $this->document->getElementsByTagName('CareAs')->item(0)->nodeValue = 'M';
+        $this->document->getElementsByTagName('CareAs')->item(0)->nodeValue = $this->ipadt_['CareAs'];
         $this->setIPADT();
     }
 
