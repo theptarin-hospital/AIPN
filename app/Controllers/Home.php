@@ -7,8 +7,8 @@ use App\Libraries\Aipn\Aipn;
 class Home extends BaseController {
 
     public function index() {
-        $an = '660374004';
-        $id = 10069;
+        $an = '661647002';
+        $id = 10109;
 //        $data_ = ['an' => $an, $id => 'id'];
         $aipn = new Aipn($an, $id);
 //        echo 'GEN : ' . $an . ' Download -> ' . $aipn->getZipUrl();
@@ -18,5 +18,4 @@ class Home extends BaseController {
 //        echo 'dapp_timezone()|' . app_timezone() . PHP_EOL;
         return view('welcome_message', ['an' => $an, $id => 'id', 'url' => $aipn->getZipUrl()]);
     }
-
 }
