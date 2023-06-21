@@ -7,8 +7,8 @@ use App\Libraries\Aipn\Aipn;
 class Home extends BaseController {
 
     public function index() {
-        $an = '661647002';
-        $id = 10109;
+        $an = '661031003';
+        $id = 10146;
 //        $data_ = ['an' => $an, $id => 'id'];
         $aipn = new Aipn($an, $id);
 //        echo 'GEN : ' . $an . ' Download -> ' . $aipn->getZipUrl();
