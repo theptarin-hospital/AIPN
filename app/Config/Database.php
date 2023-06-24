@@ -29,7 +29,7 @@ class Database extends Config
         'hostname' => '10.1.88.6',
         'username' => 'tcds',
         'password' => 'tcds',
-        'database' => 'tcds_aipn',
+        'database' => 'trh_aipn',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
