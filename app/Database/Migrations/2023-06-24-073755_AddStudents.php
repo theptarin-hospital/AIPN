@@ -29,7 +29,7 @@ class AddStudents extends Migration {
                 'type' => 'VARCHAR',
                 'constraint' => '250',
             ],
-            'create_at' => [
+            'created_at' => [
                 'type' => 'VARCHAR',
                 'constraint' => '20',
             ],

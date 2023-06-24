@@ -29,7 +29,9 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+//$routes->get('/', 'Home::index');
+$routes->get('/', 'StudentController::index');
+$routes->match(['get', 'post'], 'StudentController/importCsvToDb', 'StudentController::importCsvToDb');
 $routes->get('upload', 'Upload::index');          // Add this line.
 $routes->post('upload/upload', 'Upload::upload'); // Add this line.
 
