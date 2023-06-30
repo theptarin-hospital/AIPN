@@ -1,14 +1,10 @@
 <?php
 namespace App\Controllers;
 /**
- * AIPN STEP
- * - AN. INPUT FORM.
- * - UPLOAD FILES.
- * - TRANSFOR FILES TO XML.
- * - DOWLOAD ZIP
+ * @link https://www.shekztech.com/how-to-add-css-and-js-files-in-codeigniter-4/ How to add CSS and JS files in codeigniter 4
  */
 class Bootstrap extends BaseController {
     public function index() {
-        return view('bootstrap/cover/index');
+        return view('bootstrap');
     }
 }
