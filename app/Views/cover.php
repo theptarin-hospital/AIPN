@@ -33,7 +33,7 @@
 
 
         <!-- Custom styles for this template -->
-        <link href="<?php echo base_url('asset/bs-examples/cover/cover.css'); ?>" rel="stylesheet">
+        <link href="<?= base_url('asset/bs-examples/cover/cover.css'); ?>" rel="stylesheet">
     </head>
     <body class="d-flex h-100 text-center text-white bg-dark">
 
