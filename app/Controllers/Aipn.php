@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controllers;
+
 /**
  * AIPN STEP
  * - AN. INPUT FORM.
@@ -8,7 +10,8 @@ namespace App\Controllers;
  * - DOWLOAD ZIP
  */
 class Aipn extends BaseController {
+
     public function index() {
-        return view('welcome_message');
+        return view('pages/aipn');
     }
 }

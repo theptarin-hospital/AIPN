@@ -50,7 +50,7 @@
             </header>
 
             <main class="px-3">
-                <h1>Cover your page.</h1>
+                <h1>Theptarin AIPN page.</h1>
                 <p class="lead">TRH AIPN is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
                 <p class="lead">
                     <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
@@ -58,7 +58,12 @@
             </main>
 
             <footer class="mt-auto text-white-50">
-                <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
+                <!-- Copyright Section-->
+                <div class="copyright py-4 text-center text-white">
+                    <p>Page rendered in {elapsed_time} seconds</p>
+                    <p>TRH CI4 Environment: <?= ENVIRONMENT ?></p>
+                    <div class="container"><small>Copyright &copy; Theptarin Hospital 2023</small></div>
+                </div>
             </footer>
         </div>
 
