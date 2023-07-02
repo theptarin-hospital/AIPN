@@ -2,6 +2,9 @@
 
 namespace Config;
 
+use App\Controllers\Pages;
+use App\Controllers\Bootstrap;
+
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -30,18 +33,17 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('aipn','Aipn::index');
-$routes->get('bootstrap','Bootstrap::index');
+$routes->get('bs5-examples', [Bootstrap::class, 'index']);
+$routes->get('(:segment)', [Bootstrap::class, 'view']);
+//$routes->get('bs5-examples','Bootstrap::index');
 //$routes->get('(:any)', 'Pages::view/$1');
 //$routes->get('/', 'StudentController::index');
 //$routes->match(['get', 'post'], 'StudentController/importCsvToDb', 'StudentController::importCsvToDb');
 //$routes->get('upload', 'Upload::index');          // Add this line.
 //$routes->post('upload/upload', 'Upload::upload'); // Add this line.
-
-use App\Controllers\Pages;
 //
-$routes->get('pages', [Pages::class, 'index']);
-$routes->get('(:segment)', [Pages::class, 'view']);
+//$routes->get('pages', [Pages::class, 'index']);
+//$routes->get('(:segment)', [Pages::class, 'view']);
 /*
  * --------------------------------------------------------------------
  * Additional Routing
