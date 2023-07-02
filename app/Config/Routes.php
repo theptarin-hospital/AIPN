@@ -2,8 +2,9 @@
 
 namespace Config;
 
+use App\Controllers\Theptarin;
 use App\Controllers\Pages;
-use App\Controllers\Bootstrap;
+//use App\Controllers\Bootstrap;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
@@ -33,8 +34,8 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('bs5-examples', [Bootstrap::class, 'index']);
-$routes->get('(:segment)', [Bootstrap::class, 'view']);
+$routes->get('theptarin', [Theptarin::class, 'index']);
+$routes->get('(:segment)', [Pages::class, 'view']);
 //$routes->get('bs5-examples','Bootstrap::index');
 //$routes->get('(:any)', 'Pages::view/$1');
 //$routes->get('/', 'StudentController::index');

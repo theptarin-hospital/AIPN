@@ -5,22 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Freelancer - Start Bootstrap Theme</title>
+        <title><?= esc($page_title) ?> Start Bootstrap Theme</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="<?= base_url('asset/freelancer/assets/favicon.ico'); ?>" />
+        <link rel="icon" type="image/x-icon" href="<?= base_url($theme_path . 'assets/favicon.ico'); ?>" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="<?= base_url('asset/freelancer/css/styles.css'); ?>" rel="stylesheet" />
+        <link href="<?= base_url($theme_path . 'css/styles.css'); ?>" rel="stylesheet" />
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
+                <a class="navbar-brand" href="#page-top"><?= esc($page_title) ?></a>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
@@ -38,7 +38,7 @@
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
                 <!-- Masthead Avatar Image-->
-                <img class="masthead-avatar mb-5" src="<?= base_url('asset/freelancer/assets/img/avataaars.svg'); ?>" alt="..." />
+                <img class="masthead-avatar mb-5" src="<?= base_url($theme_path . 'assets/img/avataaars.svg'); ?>" alt="..." />
                 <!-- Masthead Heading-->
                 <h1 class="masthead-heading text-uppercase mb-0">Start Bootstrap</h1>
                 <!-- Icon Divider-->
@@ -70,7 +70,7 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="<?= base_url('asset/freelancer/assets/img/portfolio/cabin.png'); ?>" alt="..." />
+                            <img class="img-fluid" src="<?= base_url($theme_path . 'assets/img/portfolio/cabin.png'); ?>" alt="..." />
                         </div>
                     </div>
                     <!-- Portfolio Item 2-->
@@ -79,7 +79,7 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="<?= base_url('asset/freelancer/assets/img/portfolio/cake.png'); ?>" alt="..." />
+                            <img class="img-fluid" src="<?= base_url($theme_path . 'assets/img/portfolio/cake.png'); ?>" alt="..." />
                         </div>
                     </div>
                     <!-- Portfolio Item 3-->
@@ -88,7 +88,7 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="<?= base_url('asset/freelancer/assets/img/portfolio/circus.png'); ?>" alt="..." />
+                            <img class="img-fluid" src="<?= base_url($theme_path . 'assets/img/portfolio/circus.png'); ?>" alt="..." />
                         </div>
                     </div>
                     <!-- Portfolio Item 4-->
@@ -97,7 +97,7 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="<?= base_url('asset/freelancer/assets/img/portfolio/game.png'); ?>" alt="..." />
+                            <img class="img-fluid" src="<?= base_url($theme_path . 'assets/img/portfolio/game.png'); ?>" alt="..." />
                         </div>
                     </div>
                     <!-- Portfolio Item 5-->
@@ -106,7 +106,7 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="<?= base_url('asset/freelancer/assets/img/portfolio/safe.png'); ?>" alt="..." />
+                            <img class="img-fluid" src="<?= base_url($theme_path . 'assets/img/portfolio/safe.png'); ?>" alt="..." />
                         </div>
                     </div>
                     <!-- Portfolio Item 6-->
@@ -115,7 +115,7 @@
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="<?= base_url('asset/freelancer/assets/img/portfolio/submarine.png'); ?>" alt="..." />
+                            <img class="img-fluid" src="<?= base_url($theme_path . 'assets/img/portfolio/submarine.png'); ?>" alt="..." />
                         </div>
                     </div>
                 </div>
@@ -275,7 +275,7 @@
                                         <div class="divider-custom-line"></div>
                                     </div>
                                     <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="<?= base_url('asset/freelancer/assets/img/portfolio/cabin.png'); ?>" alt="..." />
+                                    <img class="img-fluid rounded mb-5" src="<?= base_url($theme_path . 'assets/img/portfolio/cabin.png'); ?>" alt="..." />
                                     <!-- Portfolio Modal - Text-->
                                     <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
                                     <button class="btn btn-primary" data-bs-dismiss="modal">
@@ -307,7 +307,7 @@
                                         <div class="divider-custom-line"></div>
                                     </div>
                                     <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="<?= base_url('asset/freelancer/assets/img/portfolio/cake.png'); ?>" alt="..." />
+                                    <img class="img-fluid rounded mb-5" src="<?= base_url($theme_path . 'assets/img/portfolio/cake.png'); ?>" alt="..." />
                                     <!-- Portfolio Modal - Text-->
                                     <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
                                     <button class="btn btn-primary" data-bs-dismiss="modal">
@@ -339,7 +339,7 @@
                                         <div class="divider-custom-line"></div>
                                     </div>
                                     <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="<?= base_url('asset/freelancer/assets/img/portfolio/circus.png'); ?>" alt="..." />
+                                    <img class="img-fluid rounded mb-5" src="<?= base_url($theme_path . 'assets/img/portfolio/circus.png'); ?>" alt="..." />
                                     <!-- Portfolio Modal - Text-->
                                     <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
                                     <button class="btn btn-primary" data-bs-dismiss="modal">
@@ -371,7 +371,7 @@
                                         <div class="divider-custom-line"></div>
                                     </div>
                                     <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="<?= base_url('asset/freelancer/assets/img/portfolio/game.png'); ?>" alt="..." />
+                                    <img class="img-fluid rounded mb-5" src="<?= base_url($theme_path . 'assets/img/portfolio/game.png'); ?>" alt="..." />
                                     <!-- Portfolio Modal - Text-->
                                     <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
                                     <button class="btn btn-primary" data-bs-dismiss="modal">
@@ -403,7 +403,7 @@
                                         <div class="divider-custom-line"></div>
                                     </div>
                                     <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="<?= base_url('asset/freelancer/assets/img/portfolio/safe.png'); ?>" alt="..." />
+                                    <img class="img-fluid rounded mb-5" src="<?= base_url($theme_path . 'assets/img/portfolio/safe.png'); ?>" alt="..." />
                                     <!-- Portfolio Modal - Text-->
                                     <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
                                     <button class="btn btn-primary" data-bs-dismiss="modal">
@@ -435,7 +435,7 @@
                                         <div class="divider-custom-line"></div>
                                     </div>
                                     <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="<?= base_url('asset/freelancer/assets/img/portfolio/submarine.png'); ?>" alt="..." />
+                                    <img class="img-fluid rounded mb-5" src="<?= base_url($theme_path . 'assets/img/portfolio/submarine.png'); ?>" alt="..." />
                                     <!-- Portfolio Modal - Text-->
                                     <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
                                     <button class="btn btn-primary" data-bs-dismiss="modal">
@@ -452,7 +452,7 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="<?= base_url('asset/freelancer/js/scripts.js'); ?>"></script>
+        <script src="<?= base_url($theme_path . 'js/scripts.js'); ?>"></script>
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
