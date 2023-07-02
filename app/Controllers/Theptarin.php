@@ -9,7 +9,7 @@ class Theptarin extends BaseController {
     private $data = ['page_title' => 'Theptarin Hospital', 'theme_path' => 'asset/theptarin/',];
 
     public function index() {
-        return $this->view();
+        return $this->view('theptarin');
     }
 
     private function view($page = 'theptarin') {
