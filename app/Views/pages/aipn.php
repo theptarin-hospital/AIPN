@@ -51,7 +51,7 @@
 
             <main class="px-3">
                 <h1>Theptarin AIPN page.</h1>
-                <p class="lead">TRH AIPN is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+                <p class="lead">TRH AIPN is a one-page for building AINP Files and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
                 <p class="lead">
                     <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
                 </p>
@@ -60,14 +60,12 @@
             <footer class="mt-auto text-white-50">
                 <!-- Copyright Section-->
                 <div class="copyright py-4 text-center text-white">
+                    <p>Locale : <?= service('request')->getLocale(); ?></p>
                     <p>Page rendered in {elapsed_time} seconds</p>
                     <p>TRH CI4 Environment: <?= ENVIRONMENT ?></p>
                     <div class="container"><small>Copyright &copy; Theptarin Hospital 2023</small></div>
                 </div>
             </footer>
         </div>
-
-
-
     </body>
 </html>
