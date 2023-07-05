@@ -63,7 +63,7 @@
                     <p>Locale : <?= service('request')->getLocale(); ?></p>
                     <p>Page rendered in {elapsed_time} seconds</p>
                     <p>TRH CI4 Environment: <?= ENVIRONMENT ?></p>
-                    <div class="container"><small>Copyright &copy; Theptarin Hospital 2023</small></div>
+                    <div class="container"><small><?= lang('app.copyright')?></small></div>
                 </div>
             </footer>
         </div>
