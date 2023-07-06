@@ -60,7 +60,7 @@
             <footer class="mt-auto text-white-50">
                 <!-- Copyright Section-->
                 <div class="copyright py-4 text-center text-white">
-                    <p>Locale : <?= service('request')->getLocale(); ?></p>
+                    <p><small><?= lang('app.welcome')?></small></p>
                     <p>Page rendered in {elapsed_time} seconds</p>
                     <p>TRH CI4 Environment: <?= ENVIRONMENT ?></p>
                     <div class="container"><small><?= lang('app.copyright')?></small></div>
