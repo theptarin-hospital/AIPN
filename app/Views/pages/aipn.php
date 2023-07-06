@@ -43,7 +43,7 @@
                     <h3 class="float-md-start mb-0">TRH AIPN</h3>
                     <nav class="nav nav-masthead justify-content-center float-md-end">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="<?= base_url('upload'); ?>">Upload</a>
                         <a class="nav-link" href="#">Contact</a>
                     </nav>
                 </div>
@@ -51,7 +51,7 @@
 
             <main class="px-3">
                 <h1>Theptarin AIPN page.</h1>
-                <p class="lead">TRH AIPN is a one-page for building AINP Files and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+                <p class="lead"><?=lang('app.msg')?></p>
                 <p class="lead">
                     <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
                 </p>

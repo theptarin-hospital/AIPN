@@ -1,6 +1,6 @@
 <?php
 
-return ['msg' => 'Internationalization Example in Codeigniter 4',
+return ['msg' => 'TRH AIPN เป็นหน้าสำหรับสร้างไฟล์ AIPN และ หน้าดาวน์โหลด ส่งไฟล์ ZIP ที่สร้างขึ้น',
     'welcome' => 'ยินดีต้อนรับสู่ภาษาไทย',
     'copyright' => 'ลิขสิทธิ์ &copy; โรงพยาบาลเทพธารินทร์ 2566',
     'year' => '2021'];
