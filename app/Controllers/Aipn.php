@@ -14,8 +14,8 @@ class Aipn extends BaseController {
     public function index() {
         return view('pages/aipn');
     }
-    
-    public function an(){
-        
+
+    public function about() {
+        return view('about-us');
     }
 }

@@ -44,7 +44,7 @@
                     <nav class="nav nav-masthead justify-content-center float-md-end">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                         <a class="nav-link" href="<?= base_url('upload'); ?>">Upload</a>
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="<?= base_url('about'); ?>">Contact</a>
                     </nav>
                 </div>
             </header>
