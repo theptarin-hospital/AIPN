@@ -48,22 +48,24 @@
                     </nav>
                 </div>
             </header>
-
             <main class="px-3">
                 <h1>Theptarin AIPN page.</h1>
-                <p class="lead"><?=lang('app.msg')?></p>
+                <p class="lead"><?= lang('app.msg') ?></p>
                 <p class="lead">
                     <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
                 </p>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="123-456-789" maxlength="9">
+                    <label for="floatingInput">Admit Number</label>
+                </div>
             </main>
-
             <footer class="mt-auto text-white-50">
                 <!-- Copyright Section-->
                 <div class="copyright py-4 text-center text-white">
-                    <p><small><?= lang('app.welcome')?></small></p>
+                    <p><small><?= lang('app.welcome') ?></small></p>
                     <p>Page rendered in {elapsed_time} seconds</p>
                     <p>TRH CI4 Environment: <?= ENVIRONMENT ?></p>
-                    <div class="container"><small><?= lang('app.copyright')?></small></div>
+                    <div class="container"><small><?= lang('app.copyright') ?></small></div>
                 </div>
             </footer>
         </div>
