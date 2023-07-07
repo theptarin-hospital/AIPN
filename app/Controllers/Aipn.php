@@ -22,7 +22,10 @@ class Aipn extends BaseController {
     }
 
     public function ipadt() {
-        return view(self::PAGES_FOLDER . 'aipn-ipadt');
+        if (!$this->request->is('post')) {
+            return view(self::PAGES_FOLDER . 'aipn-index');
+        }
+        return view(self::PAGES_FOLDER . 'aipn-ipadt', $this->request->getPost(['an',]));
     }
 
     public function about() {
