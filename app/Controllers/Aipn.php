@@ -11,11 +11,17 @@ namespace App\Controllers;
  */
 class Aipn extends BaseController {
 
+    const PAGES_FOLDER = 'pages/';
+
     public function index() {
-        return view('pages/aipn');
+        return view(self::PAGES_FOLDER . 'aipn-index');
     }
 
     public function about() {
-        return view('about-us');
+        return view(self::PAGES_FOLDER . 'aipn-about');
+    }
+
+    public function contact() {
+        return view(self::PAGES_FOLDER . 'aipn-contact');
     }
 }
