@@ -19,15 +19,15 @@ TRH|<?= lang('app.aipn_index_page') ?>
             <?php } ?>
             <?php $validation = \Config\Services::validation(); ?>
         </div>	
-        <form action="<?php echo base_url('StudentController/importCsvToDb'); ?>" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('aipn/ipadt'); ?>" class="was-validated" method="post" enctype="multipart/form-data">
             <div class="form-group mb-3">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon3">AN.</span>
-                    <input type="text" class="form-control" placeholder="รหัสการรับผู้ป่วยใน" aria-label="" aria-describedby="aipn-an1">
-                </div>			   
+                    <span class="input-group-text" id="aipn-an">AN.</span>
+                    <input type="text" class="form-control"  maxlength="9" placeholder="<?= lang('app.aipn_index_an_placeholder') ?>" aria-label="" aria-describedby="aipn-an1" required>
+                </div>
             </div>
             <div class="d-grid">
-                <input type="submit" name="submit" value="Submit" class="btn  btn-primary" />
+                <input type="submit" name="submit" value="<?= lang('app.aipn_index_an_submit') ?>" class="btn  btn-primary" />
             </div>
         </form>
     </div>
