@@ -44,7 +44,8 @@
                 <div>
                     <h3 class="float-md-start mb-0">TRH AIPN</h3>
                     <nav class="nav nav-masthead justify-content-center float-md-end">
-                        <a class="nav-link active" aria-current="page" href="<?= base_url('aipn'); ?>">Home</a>
+                        <a class="nav-link active" aria-current="page" href="<?= base_url(); ?>">Home</a>
+                        <a class="nav-link" href="<?= base_url('aipn'); ?>">AIPN</a>
                         <a class="nav-link" href="<?= base_url('upload'); ?>">Upload</a>
                         <a class="nav-link" href="<?= base_url('about'); ?>">Contact</a>
                     </nav>
