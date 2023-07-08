@@ -35,8 +35,9 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('aipn', 'Aipn::index');
-$routes->get('aipn/ipadt', 'Aipn::ipadt');
 $routes->post('aipn/ipadt', 'Aipn::ipadt');
+$routes->post('aipn/ipadt/upload', 'Aipn::ipadt_upload');
+$routes->get('aipn/ipdx', 'Aipn::ipdx');
 $routes->get('about', 'Aipn::about');
 $routes->get('upload', 'Upload::index');          // Add this line.
 $routes->post('upload/upload', 'Upload::upload'); // Add this line.

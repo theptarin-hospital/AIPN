@@ -8,7 +8,7 @@ TRH|<?= lang('app.aipn_ipadt_page') ?>
 <div class="container mt-5">
     <h1><?= lang('app.aipn_ipadt_title') ?></h1>
     <div class="card-header text-center">
-        <strong><?= lang('app.aipn_ipadt_header') ?> AN.<?=$an?></strong>
+        <strong><?= lang('app.aipn_ipadt_header') ?></strong>
     </div>
     <div class="card-body">
         <div class="mt-2">
