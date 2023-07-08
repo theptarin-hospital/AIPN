@@ -32,12 +32,13 @@ class Aipn extends BaseController {
      * @return type
      */
     public function ipadt() {
+        $input = false;
 //        $input = $this->validate([
 //            'an' => 'uploaded[file]|max_size[file,2048]|ext_in[file,csv],'
 //        ]);
-//        if (!$input) {
-//            return view(self::PAGES_FOLDER . 'aipn-ipadt', $this->request->getPost(['an',]));
-//        }
+        if (!$input) {
+            return view(self::PAGES_FOLDER . 'aipn-ipadt', $this->request->getPost(['an',]));
+        }
         return redirect()->route('aipn');
     }
 
