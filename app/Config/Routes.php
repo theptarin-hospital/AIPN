@@ -41,8 +41,8 @@ $routes->get('aipn/ipdx', 'Aipn::ipdx');
 $routes->get('about', 'Aipn::about');
 $routes->get('upload', 'Upload::index');          // Add this line.
 $routes->post('upload/upload', 'Upload::upload'); // Add this line.
-$routes->get('theptarin', [Theptarin::class, 'index']);
-$routes->get('(:segment)', [Pages::class, 'view']);
+//$routes->get('theptarin', [Theptarin::class, 'index']);
+//$routes->get('(:segment)', [Pages::class, 'view']);
 //$routes->get('bs5-examples','Bootstrap::index');
 //$routes->get('(:any)', 'Pages::view/$1');
 //$routes->get('/', 'StudentController::index');

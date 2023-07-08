@@ -22,6 +22,7 @@ class Aipn extends BaseController {
     public function index() {
         return view(self::PAGES_FOLDER . 'aipn-index');
     }
+
     /**
      * การนำไฟล์เข้า
      * - ต้องมี AN.
@@ -31,7 +32,13 @@ class Aipn extends BaseController {
      * @return type
      */
     public function ipadt() {
-        return view(self::PAGES_FOLDER . 'aipn-ipadt', $this->request->getPost(['an',]));
+//        $input = $this->validate([
+//            'an' => 'uploaded[file]|max_size[file,2048]|ext_in[file,csv],'
+//        ]);
+//        if (!$input) {
+//            return view(self::PAGES_FOLDER . 'aipn-ipadt', $this->request->getPost(['an',]));
+//        }
+        return redirect()->route('aipn');
     }
 
     public function ipadt_upload() {
