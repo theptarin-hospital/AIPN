@@ -31,6 +31,17 @@ class Aipn extends BaseController {
     }
 
     /**
+     * การอัพโหลดไฟล์ AIPN Claim CSV 4 ไฟล์
+     * - อัพโหลดไฟล์ IPADT
+     * - อัพโหลดไฟล์ IPDx
+     * - อัพโหลดไฟล์ IPOp
+     * - อัพโหลดไฟล์ Invoices
+     */
+    public function upload() {
+         return view(self::PAGES_FOLDER . 'aipn-upload', $this->request->getPost(['an',]));
+    }
+
+    /**
      * การนำไฟล์เข้า
      * - ต้องมี AN.
      * - เลือกไฟล์ CSV

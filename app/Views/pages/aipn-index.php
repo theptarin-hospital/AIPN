@@ -14,7 +14,7 @@ TRH|<?= lang('app.aipn_index_page') ?>
         <div class="mt-2">
             <?php $validation = \Config\Services::validation(); ?>
         </div>	
-        <form action="<?php echo base_url('aipn/ipadt'); ?>" class="was-validated" method="post" enctype="multipart/form-data">
+        <form action="<?php echo base_url('aipn/upload'); ?>" class="was-validated" method="post" enctype="multipart/form-data">
             <div class="form-group mb-3">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="aipn-an">AN.</span>
