@@ -16,7 +16,14 @@ class Aipn extends BaseController {
     const PAGES_FOLDER = 'pages/';
 
     /**
-     * AN. AIPN
+     * แฟ้มข้อมูลเบิกผู้ป่วยใน AIPN
+     * - ใส่เลขรับผู้ป่วยในตามข้อกำหนด ไม่เกิน 9 หลัก
+     * - อัพโหลดไฟล์ IPADT
+     * - อัพโหลดไฟล์ IPDx
+     * - อัพโหลดไฟล์ IPOp
+     * - อัพโหลดไฟล์ Invoices
+     * - สร้างไฟล์ AIPN Claim XML
+     * - สร้างไฟล์ Claim ZIP ส่งสกส.
      * @return
      */
     public function index() {
