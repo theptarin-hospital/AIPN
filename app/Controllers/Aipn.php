@@ -24,7 +24,6 @@ class Aipn extends BaseController {
      * - อัพโหลดไฟล์ Invoices
      * - สร้างไฟล์ AIPN Claim XML
      * - สร้างไฟล์ Claim ZIP ส่งสกส.
-     * @return
      */
     public function index() {
         return view(self::PAGES_FOLDER . 'aipn-index');
@@ -38,7 +37,27 @@ class Aipn extends BaseController {
      * - อัพโหลดไฟล์ Invoices
      */
     public function upload() {
-         return view(self::PAGES_FOLDER . 'aipn-upload', $this->request->getPost(['an',]));
+        if (!$this->request->is('post')) {
+            return redirect()->route('aipn');
+//            return view('signup');
+        }
+
+        /**
+         * AN. 9หลัก เป็นตัวเลข
+         */
+        $rules = ['an' => 'exact_length[9]|is_natural',];
+
+        if (!$this->validate($rules)) {
+            return redirect()->route('aipn');
+//            return view('signup');
+        }
+
+//        return view('success');
+        return view(self::PAGES_FOLDER . 'aipn-upload', $this->request->getPost(['an',]));
+    }
+
+    public function create() {
+        return $this->ipadt_upload();
     }
 
     /**
@@ -80,8 +99,7 @@ class Aipn extends BaseController {
         $data = ['errors' => 'The file has already been moved.'];
         print_r($data);
 
-//        return view('upload_form', $data);
-        return 'test';
+        return view('upload_form', $data);
     }
 
     public function ipdx() {

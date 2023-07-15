@@ -36,6 +36,7 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 $routes->get('aipn', 'Aipn::index');
 $routes->post('aipn/upload', 'Aipn::upload');
+$routes->post('aipn/create', 'Aipn::create');
 $routes->post('aipn/ipadt', 'Aipn::ipadt');
 $routes->post('aipn/ipadt/upload', 'Aipn::ipadt_upload');
 $routes->get('aipn/ipdx', 'Aipn::ipdx');
