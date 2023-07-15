@@ -89,7 +89,8 @@ class Aipn extends BaseController {
         }
         $ipadt_file = $this->request->getFile('file');
         if (!$ipadt_file->hasMoved()) {
-            $filepath = WRITEPATH . 'uploads/' . $ipadt_file->store();
+            $ipadt_file->move( WRITEPATH .'uploads/aipn','123456789_ipadt.csv');
+            $filepath = WRITEPATH .'aipn/ipadt.csv';
 
             $data = ['uploaded_fileinfo' => new File($filepath)];
 
