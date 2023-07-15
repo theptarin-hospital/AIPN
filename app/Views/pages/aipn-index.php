@@ -20,6 +20,22 @@ TRH|<?= lang('app.aipn_index_page') ?>
                     <span class="input-group-text" id="aipn-an">AN.</span>
                     <input type="text" name="an" class="form-control"  maxlength="9" placeholder="<?= lang('app.aipn_index_an_placeholder') ?>" aria-label="" aria-describedby="aipn-an1">
                 </div>
+                <div class="input-group mb-3">                   
+                    <input type="file" name="ipadt" class="form-control" required="true">
+                    <span class="input-group-text" id="aipn-an">IPADT</span>
+                </div>
+                <div class="input-group mb-3">                   
+                    <input type="file" name="ipadx" class="form-control" required="true">
+                    <span class="input-group-text" id="aipn-an">IPADx</span>
+                </div>
+                <div class="input-group mb-3">                   
+                    <input type="file" name="ipop" class="form-control" required="true">
+                    <span class="input-group-text" id="aipn-an">IPOp</span>
+                </div>
+                <div class="input-group mb-3">                   
+                    <input type="file" name="billitems" class="form-control" required="true">
+                    <span class="input-group-text" id="aipn-an">BillItmes</span>
+                </div>
             </div>
             <div class="d-grid">
                 <input type="submit" name="submit" value="<?= lang('app.aipn_index_an_submit') ?>" class="btn  btn-primary" />

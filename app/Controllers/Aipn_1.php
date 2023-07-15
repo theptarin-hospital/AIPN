@@ -56,11 +56,6 @@ class Aipn extends BaseController {
         return view(self::PAGES_FOLDER . 'aipn-upload', $this->request->getPost(['an',]));
     }
 
-    /**
-     * นำเข้าไฟล์
-     * - ip
-     * @return type
-     */
     public function create() {
         return $this->ipadt_upload();
     }
@@ -86,7 +81,7 @@ class Aipn extends BaseController {
 
     public function ipadt_upload() {
         $input = $this->validate([
-            'ipadt_file' => 'uploaded[file]|max_size[file,2048]|ext_in[file,csv],'
+            'file' => 'uploaded[file]|max_size[file,2048]|ext_in[file,csv],'
         ]);
         if (!$input) {
             $data['validation'] = $this->validator;
