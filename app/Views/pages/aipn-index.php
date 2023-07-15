@@ -3,7 +3,6 @@
 <?= $this->section("pageTitle") ?>
 TRH|<?= lang('app.aipn_index_page') ?>
 <?= $this->endSection() ?>
-
 <?= $this->section("content") ?>
 <div class="container mt-5">
     <h1><?= lang('app.aipn_index_title') ?></h1>
@@ -17,8 +16,8 @@ TRH|<?= lang('app.aipn_index_page') ?>
         <form action="<?php echo base_url('aipn/upload'); ?>" class="was-validated" method="post" enctype="multipart/form-data">
             <div class="form-group mb-3">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="aipn-an">AN.</span>
-                    <input type="text" name="an" class="form-control"  maxlength="9" placeholder="<?= lang('app.aipn_index_an_placeholder') ?>" aria-label="" aria-describedby="aipn-an1">
+                    <span class="input-group-text" >ID</span>
+                    <input type="text" name="an" class="form-control"  maxlength="9" placeholder="<?= lang('app.aipn_index_id_placeholder') ?>" aria-label="" aria-describedby="aipn-an1">
                 </div>
                 <div class="input-group mb-3">                   
                     <input type="file" name="ipadt" class="form-control" required="true">
@@ -38,7 +37,7 @@ TRH|<?= lang('app.aipn_index_page') ?>
                 </div>
             </div>
             <div class="d-grid">
-                <input type="submit" name="submit" value="<?= lang('app.aipn_index_an_submit') ?>" class="btn  btn-primary" />
+                <input type="submit" name="submit" value="<?= lang('app.aipn_index_submit') ?>" class="btn  btn-primary" />
             </div>
         </form>
     </div>
