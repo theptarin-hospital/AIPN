@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Files\File;
+use CodeIgniter\Files\FileCollection;
 
 /**
  * AIPN STEP
@@ -47,34 +48,29 @@ class Aipn extends BaseController {
             return redirect()->route('aipn');
         }
         $info_ = $this->setUploadFiles();
-//        print_r($info_['ipadt']);
-//        die($info_['ipadt']->getBasename());
-
         $data_ = ['uploaded_fileinfo' => $info_['ipadt']];
         return view(self::PAGES_FOLDER . 'aipn-success', $data_);
-//        return view(self::PAGES_FOLDER . 'aipn-upload', $this->request->getPost(['an',]));
     }
 
     /**
      * จัดการเตรียมไฟล์อัพโหลด
      * - กำหนดโฟลเดอร์เพื่อนำเข้าไฟล์
      */
-    public function setUploadFiles() {
+    private function setUploadFiles() {
+        $aipnFiles = new FileCollection([FCPATH . 'index.php', ROOTPATH . 'spark',]);
+        print_r($aipnFiles->get());
+        die('aipnFiles');
+//        $aipnFiles->addDirectory(WRITEPATH . 'TEST');
         $files_['ipadt'] = $this->request->getFile('ipadt');
         $filepath = WRITEPATH . 'uploads/aipn/';
         $fileinfo_ = [];
-        foreach ($files_ as $key => $value) {
-            if (!$value->hasMoved()) {
-                $value->move($filepath, $key . '.csv');
-                $fileinfo_[$key] = new File($filepath . $key . '.csv');
+        foreach ($files_ as $id => $val) {
+            if (!$val->hasMoved()) {
+                $val->move($filepath, $id . '.csv');
+                $fileinfo_[$id] = new File($filepath . $id . '.csv');
             }
         }
         return $fileinfo_;
-//        if (!$files_['ipadt']->hasMoved()) {
-//            $files_['ipadt']->move($filepath, 'ipadt.csv');
-//            $data_ = ['uploaded_fileinfo' => new File($filepath)];
-//            return view(self::PAGES_FOLDER . 'aipn-success', $data_);
-//        }
     }
 
     /**
