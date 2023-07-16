@@ -17,23 +17,11 @@ TRH|<?= lang('app.aipn_index_page') ?>
             <div class="form-group mb-3">
                 <div class="input-group mb-3">               
                     <span class="input-group-text" >ID</span>
-                    <input type="number" id="num" class="form-control" min="1" max="9999" placeholder="<?= lang('app.aipn_index_id_placeholder') ?>" required>
+                    <input type="number" name="num"class="form-control" min="1" max="9999" placeholder="<?= lang('app.aipn_index_id_placeholder') ?>" required>
                 </div>
-                <div class="input-group mb-3">                   
-                    <input type="file" name="ipadt" class="form-control" >
-                    <span class="input-group-text" id="aipn-an">IPADT</span>
-                </div>
-                <div class="input-group mb-3">                   
-                    <input type="file" name="ipadx" class="form-control">
-                    <span class="input-group-text" id="aipn-an">IPADx</span>
-                </div>
-                <div class="input-group mb-3">                   
-                    <input type="file" name="ipop" class="form-control" >
-                    <span class="input-group-text" id="aipn-an">IPOp</span>
-                </div>
-                <div class="input-group mb-3">                   
-                    <input type="file" name="billitems" class="form-control" >
-                    <span class="input-group-text" id="aipn-an">BillItmes</span>
+                <div class="input-group mb-3">
+                    <input type="file" name="ipadt" class="form-control" accept=".CSV" >
+                    <span class="input-group-text" id="text-ipadt">IPADT</span>
                 </div>
             </div>
             <div class="d-grid">

@@ -33,21 +33,28 @@ class Aipn extends BaseController {
      * - สร้างไฟล์ Claim ZIP เพื่อให้ดาวน์โหลด ใช้ส่งสกส.
      */
     public function upload() {
+        $validation = \Config\Services::validation();
         if (!$this->request->is('post')) {
             return redirect()->route('aipn');
-//            return view('signup');
         }
-
-        /**
-         * AN. 9หลัก เป็นตัวเลข
-         */
-        $rules = ['an' => 'exact_length[9]|is_natural',];
-
+        $rules = [
+            'num' => 'required',
+            'ipadt' => 'uploaded[ipadt]|max_size[ipadt,2048]|ext_in[ipadt,csv]',
+        ];
         if (!$this->validate($rules)) {
+            print_r($validation->getErrors());
+            die('Missing Rules');
             return redirect()->route('aipn');
-//            return view('signup');
         }
-
+//        /**
+//         * AN. 9หลัก เป็นตัวเลข
+//         */
+//        $rules = ['an' => 'exact_length[9]|is_natural',];
+//
+//        if (!$this->validate($rules)) {
+//            return redirect()->route('aipn');
+////            return view('signup');
+//        }
 //        return view('success');
         return view(self::PAGES_FOLDER . 'aipn-upload', $this->request->getPost(['an',]));
     }
