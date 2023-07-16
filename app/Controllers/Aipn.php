@@ -46,8 +46,13 @@ class Aipn extends BaseController {
             die('Missing Rules');
             return redirect()->route('aipn');
         }
-        $this->setUploadFiles();
-        return view(self::PAGES_FOLDER . 'aipn-upload', $this->request->getPost(['an',]));
+        $info_ = $this->setUploadFiles();
+//        print_r($info_['ipadt']);
+//        die($info_['ipadt']->getBasename());
+
+        $data_ = ['uploaded_fileinfo' => $info_['ipadt']];
+        return view(self::PAGES_FOLDER . 'aipn-success', $data_);
+//        return view(self::PAGES_FOLDER . 'aipn-upload', $this->request->getPost(['an',]));
     }
 
     /**
@@ -57,11 +62,19 @@ class Aipn extends BaseController {
     public function setUploadFiles() {
         $files_['ipadt'] = $this->request->getFile('ipadt');
         $filepath = WRITEPATH . 'uploads/aipn/';
-        if (!$files_['ipadt']->hasMoved()) {
-            $files_['ipadt']->move($filepath, 'ipadt.csv');
-            print_r(new File($filepath . 'ipadt.csv'));
-            die('Upload Ok!');
+        $fileinfo_ = [];
+        foreach ($files_ as $key => $value) {
+            if (!$value->hasMoved()) {
+                $value->move($filepath, $key . '.csv');
+                $fileinfo_[$key] = new File($filepath . $key . '.csv');
+            }
         }
+        return $fileinfo_;
+//        if (!$files_['ipadt']->hasMoved()) {
+//            $files_['ipadt']->move($filepath, 'ipadt.csv');
+//            $data_ = ['uploaded_fileinfo' => new File($filepath)];
+//            return view(self::PAGES_FOLDER . 'aipn-success', $data_);
+//        }
     }
 
     /**
