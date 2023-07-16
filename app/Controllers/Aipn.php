@@ -14,6 +14,10 @@ use CodeIgniter\Files\File;
 class Aipn extends BaseController {
 
     const PAGES_FOLDER = 'pages/';
+    const RULES = [
+        'num' => 'required',
+        'ipadt' => 'uploaded[ipadt]|max_size[ipadt,2048]|ext_in[ipadt,csv]',
+    ];
 
     /**
      * แฟ้มข้อมูลเบิกผู้ป่วยใน AIPN
@@ -37,26 +41,27 @@ class Aipn extends BaseController {
         if (!$this->request->is('post')) {
             return redirect()->route('aipn');
         }
-        $rules = [
-            'num' => 'required',
-            'ipadt' => 'uploaded[ipadt]|max_size[ipadt,2048]|ext_in[ipadt,csv]',
-        ];
-        if (!$this->validate($rules)) {
+        if (!$this->validate(self::RULES)) {
             print_r($validation->getErrors());
             die('Missing Rules');
             return redirect()->route('aipn');
         }
-//        /**
-//         * AN. 9หลัก เป็นตัวเลข
-//         */
-//        $rules = ['an' => 'exact_length[9]|is_natural',];
-//
-//        if (!$this->validate($rules)) {
-//            return redirect()->route('aipn');
-////            return view('signup');
-//        }
-//        return view('success');
+        $this->setUploadFiles();
         return view(self::PAGES_FOLDER . 'aipn-upload', $this->request->getPost(['an',]));
+    }
+
+    /**
+     * จัดการเตรียมไฟล์อัพโหลด
+     * - กำหนดโฟลเดอร์เพื่อนำเข้าไฟล์
+     */
+    public function setUploadFiles() {
+        $files_['ipadt'] = $this->request->getFile('ipadt');
+        $filepath = WRITEPATH . 'uploads/aipn/';
+        if (!$files_['ipadt']->hasMoved()) {
+            $files_['ipadt']->move($filepath, 'ipadt.csv');
+            print_r(new File($filepath . 'ipadt.csv'));
+            die('Upload Ok!');
+        }
     }
 
     /**
