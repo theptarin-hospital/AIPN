@@ -17,7 +17,7 @@ TRH|<?= lang('app.aipn_index_page') ?>
             <div class="form-group mb-3">
                 <div class="input-group mb-3">               
                     <span class="input-group-text" >ID</span>
-                    <input type="text" name="an" class="form-control"  maxlength="4" placeholder="<?= lang('app.aipn_index_id_placeholder') ?>" required>
+                    <input type="number" id="num" class="form-control" min="1" max="9999" placeholder="<?= lang('app.aipn_index_id_placeholder') ?>" required>
                 </div>
                 <div class="input-group mb-3">                   
                     <input type="file" name="ipadt" class="form-control" >
