@@ -17,24 +17,20 @@ class Aipn extends BaseController {
 
     /**
      * แฟ้มข้อมูลเบิกผู้ป่วยใน AIPN
-     * - ใส่เลขไฟล์ที่ต้องการสร้าง
+     * - period เลขงวดการส่ง เริ่มต้น 0001 - 9999
      * - อัพโหลดไฟล์ IPADT
      * - อัพโหลดไฟล์ IPDx
      * - อัพโหลดไฟล์ IPOp
      * - อัพโหลดไฟล์ Invoices
-     * - สร้างไฟล์ AIPN Claim XML
-     * - สร้างไฟล์ Claim ZIP ส่งสกส.
      */
     public function index() {
         return view(self::PAGES_FOLDER . 'aipn-index');
     }
 
     /**
-     * การอัพโหลดไฟล์ AIPN Claim CSV 4 ไฟล์
-     * - อัพโหลดไฟล์ IPADT
-     * - อัพโหลดไฟล์ IPDx
-     * - อัพโหลดไฟล์ IPOp
-     * - อัพโหลดไฟล์ Invoices
+     * การตรวจสอบประมวลผลไฟล์ AIPN Claim จาก CSV ไฟล์
+     * - สร้างไฟล์ AIPN Claim XML
+     * - สร้างไฟล์ Claim ZIP เพื่อให้ดาวน์โหลด ใช้ส่งสกส.
      */
     public function upload() {
         if (!$this->request->is('post')) {
@@ -94,8 +90,8 @@ class Aipn extends BaseController {
         }
         $ipadt_file = $this->request->getFile('file');
         if (!$ipadt_file->hasMoved()) {
-            $ipadt_file->move( WRITEPATH .'uploads/aipn','123456789_ipadt.csv');
-            $filepath = WRITEPATH .'aipn/ipadt.csv';
+            $ipadt_file->move(WRITEPATH . 'uploads/aipn', '123456789_ipadt.csv');
+            $filepath = WRITEPATH . 'aipn/ipadt.csv';
 
             $data = ['uploaded_fileinfo' => new File($filepath)];
 

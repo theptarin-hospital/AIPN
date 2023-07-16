@@ -15,24 +15,24 @@ TRH|<?= lang('app.aipn_index_page') ?>
         </div>	
         <form action="<?php echo base_url('aipn/upload'); ?>" class="was-validated" method="post" enctype="multipart/form-data">
             <div class="form-group mb-3">
-                <div class="input-group mb-3">
+                <div class="input-group mb-3">               
                     <span class="input-group-text" >ID</span>
-                    <input type="text" name="an" class="form-control"  maxlength="9" placeholder="<?= lang('app.aipn_index_id_placeholder') ?>" aria-label="" aria-describedby="aipn-an1">
+                    <input type="text" name="an" class="form-control"  maxlength="4" placeholder="<?= lang('app.aipn_index_id_placeholder') ?>" required>
                 </div>
                 <div class="input-group mb-3">                   
-                    <input type="file" name="ipadt" class="form-control" required="true">
+                    <input type="file" name="ipadt" class="form-control" >
                     <span class="input-group-text" id="aipn-an">IPADT</span>
                 </div>
                 <div class="input-group mb-3">                   
-                    <input type="file" name="ipadx" class="form-control" required="true">
+                    <input type="file" name="ipadx" class="form-control">
                     <span class="input-group-text" id="aipn-an">IPADx</span>
                 </div>
                 <div class="input-group mb-3">                   
-                    <input type="file" name="ipop" class="form-control" required="true">
+                    <input type="file" name="ipop" class="form-control" >
                     <span class="input-group-text" id="aipn-an">IPOp</span>
                 </div>
                 <div class="input-group mb-3">                   
-                    <input type="file" name="billitems" class="form-control" required="true">
+                    <input type="file" name="billitems" class="form-control" >
                     <span class="input-group-text" id="aipn-an">BillItmes</span>
                 </div>
             </div>
