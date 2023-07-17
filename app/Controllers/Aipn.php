@@ -78,7 +78,19 @@ class Aipn extends BaseController {
             }
         }
         directory_mirror(self::UPLOAD_FOLDER, self::IMPORT_FOLDER, true);
+        $this->testFiles();
         return $fileinfo_;
+    }
+
+    private function testFiles() {
+        if (($open = fopen(self::IMPORT_FOLDER . "ipadt.csv", "r")) !== FALSE) {
+            while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
+                $ipadt[] = $data;
+            }
+            fclose($open);
+        }
+        print_r($ipadt);
+        return die('This is testing function the testFiles!');
     }
 
     public function about() {
