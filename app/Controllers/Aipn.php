@@ -16,6 +16,7 @@ class Aipn extends BaseController {
 
     const PAGES_FOLDER = 'pages/';
     const UPLOAD_FOLDER = WRITEPATH . 'aipn/uploads/';
+    const IMPORT_FOLDER = WRITEPATH . 'aipn/imports/';
     const RULES = [
         'num' => 'required',
         'ipadt' => 'uploaded[ipadt]|max_size[ipadt,2048]|ext_in[ipadt,csv]',
@@ -75,6 +76,7 @@ class Aipn extends BaseController {
                 $fileinfo_[$id] = new File($filepath . $id . '.csv');
             }
         }
+        directory_mirror(self::UPLOAD_FOLDER, self::IMPORT_FOLDER);
         return $fileinfo_;
     }
 
