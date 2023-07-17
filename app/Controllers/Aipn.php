@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use CodeIgniter\Files\File;
-use CodeIgniter\Files\FileCollection;
 
 /**
  * AIPN STEP
@@ -20,9 +19,10 @@ class Aipn extends BaseController {
     const RULES = [
         'num' => 'required',
         'ipadt' => 'uploaded[ipadt]|max_size[ipadt,2048]|ext_in[ipadt,csv]',
+        'ipdx' => 'uploaded[ipdx]|max_size[ipdx,2048]|ext_in[ipdx,csv]',
+        'ipop' => 'uploaded[ipop]|max_size[ipop,2048]|ext_in[ipop,csv]',
+        'billitems' => 'uploaded[billitems]|max_size[billitems,2048]|ext_in[billitems,csv]',
     ];
-
-//    public $path ='';
 
     /**
      * แฟ้มข้อมูลเบิกผู้ป่วยใน AIPN
@@ -51,19 +51,24 @@ class Aipn extends BaseController {
             die('Missing Rules');
             return redirect()->route('aipn');
         }
-        $info_ = $this->setUploadFiles();
+        $info_ = $this->setFiles();
         $data_ = ['uploaded_fileinfo' => $info_['ipadt']];
         return view(self::PAGES_FOLDER . 'aipn-success', $data_);
     }
 
     /**
      * จัดการเตรียมไฟล์อัพโหลด
-     * - กำหนดโฟลเดอร์เพื่อนำเข้าไฟล์.
+     * - ลบไฟล์โฟลเดอร์อัพโหลดเดิมทั้งหมด
+     * - คัดลอกสร้างไฟล์โฟลเดอร์สำหรับนำเข้าไฟล์
      */
-    private function setUploadFiles() {
+    private function setFiles() {
         helper('filesystem');
+        delete_files(self::IMPORT_FOLDER);
         delete_files(self::UPLOAD_FOLDER);
         $files_['ipadt'] = $this->request->getFile('ipadt');
+        $files_['ipdx'] = $this->request->getFile('ipdx');
+        $files_['ipop'] = $this->request->getFile('ipop');
+        $files_['billitems'] = $this->request->getFile('billitems');
         $filepath = self::UPLOAD_FOLDER;
         $fileinfo_ = [];
         foreach ($files_ as $id => $val) {
@@ -72,83 +77,8 @@ class Aipn extends BaseController {
                 $fileinfo_[$id] = new File($filepath . $id . '.csv');
             }
         }
-        directory_mirror(self::UPLOAD_FOLDER, self::IMPORT_FOLDER);
+        directory_mirror(self::UPLOAD_FOLDER, self::IMPORT_FOLDER, true);
         return $fileinfo_;
-    }
-
-    /**
-     * เตรียมไฟล์สำหรับการ IMPORT
-     * - ย้ายไฟล์อัพโหลดไปไว้ที่ใหม่
-     * 
-     * @return FileCollection
-     */
-    private function setFilesImport() {
-        helper('filesystem');
-        $map = directory_map(WRITEPATH . 'uploads/', 1);
-        print_r($map);
-        delete_files(self::UPLOAD_FOLDER);
-        die('aipnFiles');
-        return new FileCollection([FCPATH . 'index.php', ROOTPATH . 'spark', WRITEPATH . 'uploads']);
-    }
-
-    /**
-     * นำเข้าไฟล์
-     * - ip
-     * @return type
-     */
-    public function create() {
-        return $this->ipadt_upload();
-    }
-
-    /**
-     * การนำไฟล์เข้า
-     * - ต้องมี AN.
-     * - เลือกไฟล์ CSV
-     * - แสดงผมการนำเข้าไฟล์สำเร็จ
-     * - เลือกส่งไฟล์ต่อไป
-     * @return type
-     */
-    public function ipadt() {
-        $input = false;
-//        $input = $this->validate([
-//            'an' => 'uploaded[file]|max_size[file,2048]|ext_in[file,csv],'
-//        ]);
-        if (!$input) {
-            return view(self::PAGES_FOLDER . 'aipn-ipadt', $this->request->getPost(['an',]));
-        }
-        return redirect()->route('aipn');
-    }
-
-    public function ipadt_upload() {
-        $input = $this->validate([
-            'ipadt_file' => 'uploaded[file]|max_size[file,2048]|ext_in[file,csv],'
-        ]);
-        if (!$input) {
-            $data['validation'] = $this->validator;
-            return view(self::PAGES_FOLDER . 'aipn-index', $data);
-        }
-        $ipadt_file = $this->request->getFile('file');
-        if (!$ipadt_file->hasMoved()) {
-            $ipadt_file->move(WRITEPATH . 'uploads/aipn', '123456789_ipadt.csv');
-            $filepath = WRITEPATH . 'aipn/ipadt.csv';
-
-            $data = ['uploaded_fileinfo' => new File($filepath)];
-
-            return view('upload_success', $data);
-        }
-
-        $data = ['errors' => 'The file has already been moved.'];
-        print_r($data);
-
-        return view('upload_form', $data);
-    }
-
-    public function ipdx() {
-        return view('upload_success', $data);
-//        if (!$this->request->is('post')) {
-//            return view(self::PAGES_FOLDER . 'aipn-index');
-//        }
-//        return view(self::PAGES_FOLDER . 'aipn-ipadt', $this->request->getPost(['an',]));
     }
 
     public function about() {

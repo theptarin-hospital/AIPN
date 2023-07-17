@@ -20,8 +20,20 @@ TRH|<?= lang('app.aipn_index_page') ?>
                     <input type="number" name="num"class="form-control" min="1" max="9999" placeholder="<?= lang('app.aipn_index_id_placeholder') ?>" required>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="file" name="ipadt" class="form-control" accept=".CSV" >
+                    <input type="file" name="ipadt" class="form-control" accept=".CSV" required>
                     <span class="input-group-text" id="text-ipadt">IPADT</span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="file" name="ipdx" class="form-control" accept=".CSV" required>
+                    <span class="input-group-text" id="text-ipdx">IPDx</span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="file" name="ipop" class="form-control" accept=".CSV" required>
+                    <span class="input-group-text" id="text-ipop">IPOp</span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="file" name="billitems" class="form-control" accept=".CSV" required>
+                    <span class="input-group-text" id="text-billitems">BillItems</span>
                 </div>
             </div>
             <div class="d-grid">
