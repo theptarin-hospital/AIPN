@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Files\File;
+use App\Libraries\Aipn\AipnFiles;
 
 /**
  * AIPN STEP
@@ -83,13 +84,8 @@ class Aipn extends BaseController {
     }
 
     private function testFiles() {
-        if (($open = fopen(self::IMPORT_FOLDER . "ipadt.csv", "r")) !== FALSE) {
-            while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
-                $ipadt[] = $data;
-            }
-            fclose($open);
-        }
-        print_r($ipadt);
+        $files = new AipnFiles();
+        $files->facthIpadt();
         return die('This is testing function the testFiles!');
     }
 
