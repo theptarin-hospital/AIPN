@@ -61,10 +61,6 @@ class Aipn extends BaseController {
      * - กำหนดโฟลเดอร์เพื่อนำเข้าไฟล์.
      */
     private function setUploadFiles() {
-//        $aipnFiles = $this->setFilesImport();
-//        $aipnFiles->addDirectory(APPPATH . 'Filters');
-//        print_r($aipnFiles->get());
-//        $aipnFiles->addDirectory(WRITEPATH . 'TEST');
         helper('filesystem');
         delete_files(self::UPLOAD_FOLDER);
         $files_['ipadt'] = $this->request->getFile('ipadt');
