@@ -15,10 +15,13 @@ use CodeIgniter\Files\FileCollection;
 class Aipn extends BaseController {
 
     const PAGES_FOLDER = 'pages/';
+    const UPLOAD_FOLDER = WRITEPATH . 'aipn/uploads/';
     const RULES = [
         'num' => 'required',
         'ipadt' => 'uploaded[ipadt]|max_size[ipadt,2048]|ext_in[ipadt,csv]',
     ];
+
+//    public $path ='';
 
     /**
      * แฟ้มข้อมูลเบิกผู้ป่วยใน AIPN
@@ -54,15 +57,17 @@ class Aipn extends BaseController {
 
     /**
      * จัดการเตรียมไฟล์อัพโหลด
-     * - กำหนดโฟลเดอร์เพื่อนำเข้าไฟล์
+     * - กำหนดโฟลเดอร์เพื่อนำเข้าไฟล์.
      */
     private function setUploadFiles() {
-        $aipnFiles = new FileCollection([FCPATH . 'index.php', ROOTPATH . 'spark',]);
-        print_r($aipnFiles->get());
-        die('aipnFiles');
+//        $aipnFiles = $this->setFilesImport();
+//        $aipnFiles->addDirectory(APPPATH . 'Filters');
+//        print_r($aipnFiles->get());
 //        $aipnFiles->addDirectory(WRITEPATH . 'TEST');
+        helper('filesystem');
+        delete_files(self::UPLOAD_FOLDER);
         $files_['ipadt'] = $this->request->getFile('ipadt');
-        $filepath = WRITEPATH . 'uploads/aipn/';
+        $filepath = self::UPLOAD_FOLDER;
         $fileinfo_ = [];
         foreach ($files_ as $id => $val) {
             if (!$val->hasMoved()) {
@@ -71,6 +76,21 @@ class Aipn extends BaseController {
             }
         }
         return $fileinfo_;
+    }
+
+    /**
+     * เตรียมไฟล์สำหรับการ IMPORT
+     * - ย้ายไฟล์อัพโหลดไปไว้ที่ใหม่
+     * 
+     * @return FileCollection
+     */
+    private function setFilesImport() {
+        helper('filesystem');
+        $map = directory_map(WRITEPATH . 'uploads/', 1);
+        print_r($map);
+        delete_files(self::UPLOAD_FOLDER);
+        die('aipnFiles');
+        return new FileCollection([FCPATH . 'index.php', ROOTPATH . 'spark', WRITEPATH . 'uploads']);
     }
 
     /**
