@@ -27,19 +27,29 @@ class AipnFiles {
     /**
      * ข้อมูลเกี่ยวกับผู้ป่วยใน
      * @param string $an AN.
-     * @return array getRowArray()
+     * @return array One Record
      */
     public function facthIpadt(string $an = '0') {
         $rows = $this->facthCSV('ipadt.csv');
         foreach ($rows as $row) {
-            echo $row['AN'];
-            print_r($row);
-//            var_dump($row);
+            $as_['ipadt'] = $this->setIpadt($row);
+           return array_merge($as_,$row);
+//            print_r($row);
         }
 //        $sql = "SELECT concat(`AN`,'|',`HN`,'|',`IDTYPE`,'|',`PIDPAT`,'|',`TITLE`,'|',`NAMEPAT`,'|',`DOB`,'|',`SEX`,'|',`MARRIAGE`,'|',`CHANGWAT`,'|',`AMPHUR`,'|',`NATION`,'|',`AdmType`,'|',`AdmSource`,'|',`DTAdm`,'|',`DTDisch`,'|',`LeaveDay`,'|',`DischStat`,'|',`DischType`,'|',`AdmWt`,'|',`DischWard`,'|',`Dept`) AS `ipadt`,`AN`, `Invoice`, `RECEIPT_DATE`, `ServiceType`, `CareAs` FROM `aipn_ipadt` WHERE `AN` = :an:";
 //        $db = Database::connect();
 //        return $db->query($sql, [
 //                    'an' => $an,
 //                ])->getRowArray();
+    }
+
+    public function setIpadt(array $r) {
+        $fields_ = [
+            $r['AN'], $r['HN'], $r['IDTYPE'], $r['PIDPAT'], $r['TITLE'], $r['NAMEPAT'], $r['DOB'], $r['SEX'],
+            $r['MARRIAGE'], $r['CHANGWAT'], $r['AUMPHUR'], $r['NATION'], $r['AdmType'], $r['AdmSource'],
+            $r['DTAdm'], $r['DTDisch'], $r['LeaveDay'], $r['DischStat'], $r['DischType'], $r['AdmWt'], $r['DischWard'],
+            $r['Dept'],
+        ];
+        return implode('|', $fields_);
     }
 }

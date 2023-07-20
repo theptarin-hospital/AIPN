@@ -85,7 +85,8 @@ class Aipn extends BaseController {
 
     private function testFiles() {
         $files = new AipnFiles();
-        $files->facthIpadt();
+        $row_ = $files->facthIpadt();
+        print_r($row_);
         return die('This is testing function the testFiles!');
     }
 
