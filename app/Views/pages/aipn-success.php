@@ -14,6 +14,7 @@ TRH|<?= lang('app.aipn_success_page') ?>
             <?php $validation = \Config\Services::validation(); ?>
         </div>
         <div class="mt-2">
+            <?php print_r($aipn_zipinfo) ?>
             <ul>
                 <li>name: <?= esc($uploaded_fileinfo->getBasename()) ?></li>
                 <li>size: <?= esc($uploaded_fileinfo->getSizeByUnit('kb')) ?> KB</li>

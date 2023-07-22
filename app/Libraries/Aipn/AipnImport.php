@@ -9,7 +9,7 @@ use League\Csv\Reader;
  * @author suchart bunhachirat <suchartbu@gmail.com>
  * @link https://drive.google.com/file/d/1RL-iuL4bNWE8wzkCB_EcR6yf18EmGWlr/view?usp=share_link
  */
-class AipnFiles {
+class AipnImport {
 
     const IMPORT_FOLDER = WRITEPATH . 'aipn/imports/';
 

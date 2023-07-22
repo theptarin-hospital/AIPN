@@ -3,7 +3,8 @@
 namespace App\Controllers;
 
 use CodeIgniter\Files\File;
-use App\Libraries\Aipn\AipnFiles;
+use App\Libraries\Aipn\AipnImport;
+use App\Libraries\Aipn\AipnZip;
 
 /**
  * AIPN STEP
@@ -53,7 +54,10 @@ class AipnCTL extends BaseController {
             return redirect()->route('aipn');
         }
         $info_ = $this->setFiles();
-        $data_ = ['uploaded_fileinfo' => $info_['ipadt']];
+        $an = '661440003';
+        $id = 10000;
+        $aipn = new AipnZip($an, $id);
+        $data_ = ['uploaded_fileinfo' => $info_['ipadt'], 'aipn_zipinfo' => ['an' => $an, $id => 'id', 'url' => $aipn->getZipUrl()]];
         return view(self::PAGES_FOLDER . 'aipn-success', $data_);
     }
 
@@ -79,12 +83,12 @@ class AipnCTL extends BaseController {
             }
         }
         directory_mirror(self::UPLOAD_FOLDER, self::IMPORT_FOLDER, true);
-        $this->testFiles();
+//        $this->testFiles();
         return $fileinfo_;
     }
 
     private function testFiles() {
-        $files = new AipnFiles();
+        $files = new AipnImport();
         $row_ = $files->facthIpadt();
         print_r($row_);
         return die('This is testing function the testFiles!');

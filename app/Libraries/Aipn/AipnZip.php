@@ -5,15 +5,15 @@ namespace App\Libraries\Aipn;
 use Exception;
 use ZipArchive;
 //use App\Models\AipnModel;
-use App\Libraries\Aipn\AipnFiles;
-use App\Libraries\Aipn\XmlDocument;
+use App\Libraries\Aipn\AipnImport;
+use App\Libraries\Aipn\AipnXml;
 
 /**
  * All In-patient Claim Data File Specification : AIPN
  * @author suchart bunhachirat <suchartbu@gmail.com>
  * @link https://drive.google.com/file/d/1RL-iuL4bNWE8wzkCB_EcR6yf18EmGWlr/view?usp=share_link
  */
-class AipnZip extends XmlDocument {
+class AipnZip extends AipnXml {
 
     const ZIP_PATH = 'ZIPFiles/';
 
@@ -24,7 +24,7 @@ class AipnZip extends XmlDocument {
         try {
             parent::__construct($an);
             $this->setHeader();
-            $files = new AipnFiles();
+            $files = new AipnImport();
             $ipadt_row_ = $files->facthIpadt($an);
             if (is_null($ipadt_row_)) {
                 throw new Exception('AN ไม่มี');
@@ -65,5 +65,4 @@ class AipnZip extends XmlDocument {
     public function getZipUrl() {
         return 'http://localhost/AIPN/public/' . $this->getZipPath();
     }
-
 }
