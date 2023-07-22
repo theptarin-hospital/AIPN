@@ -128,3 +128,5 @@ nb-configuration.xml
 /composer.lock
 /public/csvfile/
 /writable/aipn/
+/public/XMLFiles/
+/public/TXTFiles/
