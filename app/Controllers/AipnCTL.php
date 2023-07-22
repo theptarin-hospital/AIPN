@@ -12,7 +12,7 @@ use App\Libraries\Aipn\AipnFiles;
  * - TRANSFOR FILES TO XML.
  * - DOWNLOAD ZIP
  */
-class Aipn extends BaseController {
+class AipnCTL extends BaseController {
 
     const PAGES_FOLDER = 'pages/';
     const UPLOAD_FOLDER = WRITEPATH . 'aipn/uploads/';
