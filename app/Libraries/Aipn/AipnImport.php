@@ -32,18 +32,16 @@ class AipnImport {
     public function facthIpadt(string $an = '0') {
         $rows = $this->facthCSV('ipadt.csv');
         foreach ($rows as $row) {
-            $as_['ipadt'] = $this->setIpadt($row);
-            return array_merge($as_, $row);
-//            print_r($row);
+            return array_merge(['ipadt' => $this->setIpadt($row)], $row);
         }
-//        $sql = "SELECT concat(`AN`,'|',`HN`,'|',`IDTYPE`,'|',`PIDPAT`,'|',`TITLE`,'|',`NAMEPAT`,'|',`DOB`,'|',`SEX`,'|',`MARRIAGE`,'|',`CHANGWAT`,'|',`AMPHUR`,'|',`NATION`,'|',`AdmType`,'|',`AdmSource`,'|',`DTAdm`,'|',`DTDisch`,'|',`LeaveDay`,'|',`DischStat`,'|',`DischType`,'|',`AdmWt`,'|',`DischWard`,'|',`Dept`) AS `ipadt`,`AN`, `Invoice`, `RECEIPT_DATE`, `ServiceType`, `CareAs` FROM `aipn_ipadt` WHERE `AN` = :an:";
-//        $db = Database::connect();
-//        return $db->query($sql, [
-//                    'an' => $an,
-//                ])->getRowArray();
     }
 
-    public function setIpadt(array $r) {
+    /**
+     * กำหนด IPADT สำหรับใช้ใน XML  
+     * @param array $r
+     * @return string
+     */
+    private function setIpadt(array $r) {
         $fields_ = [
             $r['AN'], $r['HN'], $r['IDTYPE'], $r['PIDPAT'], $r['TITLE'], $r['NAMEPAT'], $r['DOB'], $r['SEX'],
             $r['MARRIAGE'], $r['CHANGWAT'], $r['AUMPHUR'], $r['NATION'], $r['AdmType'], $r['AdmSource'],
@@ -56,27 +54,77 @@ class AipnImport {
     /**
      * ข้อมูลการวินิจฉัยโรค ICD10
      * @param string $an AN.
-     * @return array getResultArray()
+     * @return array ResultArray
      */
     public function facthIpdx(string $an) {
-        $result_ = [];
+        $results_ = [];
         $rows = $this->facthCSV('ipdx.csv');
-        foreach ($rows as $r) {
-//            $ipdx_as = [
-//                $r['DxType'], $r['CodeSys'], $r['Code'], $r['DiagTerm'], $r['DR'], $r['DateDiag'],
-//            ];
-            $as_['ipdx'] = [
-                $r['DxType'], $r['CodeSys'], $r['Code'], $r['DiagTerm'], $r['DR'], $r['DateDiag'],
-            ];
-            $result_[] = array_merge($as_, $r);
-//            print_r($row);
+        foreach ($rows as $row) {
+            $results_[] = array_merge(['ipdx' => $this->setIpdx($row)], $row);
         }
-//        print_r($result_);
-//        die('facthIpdx');
-//        $sql = "SELECT concat(`DxType`,'|',`CodeSys`,'|',`Code`,'|',`DiagTerm`,'|',`DR`,'|',`DateDiag`) AS `ipdx`,`AN` FROM `aipn_ipdx` WHERE `AN` = :an: order by DxType";
-//        $db = Database::connect();
-//        return $db->query($sql, [
-//                    'an' => $an,
-//                ])->getResultArray();
+        return $results_;
+    }
+
+    /**
+     * กำหนด IPDx สำหรับใช้ใน XML  
+     * @param array $r
+     * @return string
+     */
+    private function setIpdx(array $r) {
+        $fields_ = [
+            $r['DxType'], $r['CodeSys'], $r['Code'], $r['DiagTerm'], $r['DR'], $r['DateDiag'],
+        ];
+        return implode('|', $fields_);
+    }
+
+    /**
+     * ข้อมูลการทำหัตถการและการผ่าตัด ICD9
+     * @param string $an
+     * @return array Results
+     */
+    public function facthIpop(string $an) {
+        $results_ = [];
+        $rows = $this->facthCSV('ipop.csv');
+        foreach ($rows as $row) {
+            $results_[] = array_merge(['ipop' => $this->setIpop($row)], $row);
+        }
+        return $results_;
+    }
+
+    /**
+     * กำหนด IPOp สำหรับใช้ใน XML  
+     * @param array $r Row record
+     * @return string
+     */
+    private function setIpop(array $r) {
+        $fields_ = [
+            $r['CodeSys'], $r['Code'], $r['ProcTerm'], $r['DR'], $r['DateTimeIn'], $r['DateTimeOut'], $r['Location'],
+        ];
+        return implode('|', $fields_);
+    }
+
+    /**
+     * ข้อมูลค่ารักษาทุกรายการ
+     * @param string $an
+     * @return array Results
+     */
+    public function facthBillitems(string $an) {
+        $results_ = [];
+        $rows = $this->facthCSV('billitems.csv');
+        foreach ($rows as $row) {
+            $results_[] = array_merge(['invoices' => $this->setInvoice($row)], $row);
+        }
+        return $results_;
+    }
+    /*
+     * กำหนด Invoices สำหรับใช้ใน XML  
+     * @param array $r Row record
+     * @return string
+     */
+    private function setInvoice(array $r) {
+        $fields_ = [
+            $r['CodeSys'], $r['Code'], $r['ProcTerm'], $r['DR'], $r['DateTimeIn'], $r['DateTimeOut'], $r['Location'],
+        ];
+        return implode('|', $fields_);
     }
 }
