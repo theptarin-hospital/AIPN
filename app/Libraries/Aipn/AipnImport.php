@@ -33,7 +33,7 @@ class AipnImport {
         $rows = $this->facthCSV('ipadt.csv');
         foreach ($rows as $row) {
             $as_['ipadt'] = $this->setIpadt($row);
-           return array_merge($as_,$row);
+            return array_merge($as_, $row);
 //            print_r($row);
         }
 //        $sql = "SELECT concat(`AN`,'|',`HN`,'|',`IDTYPE`,'|',`PIDPAT`,'|',`TITLE`,'|',`NAMEPAT`,'|',`DOB`,'|',`SEX`,'|',`MARRIAGE`,'|',`CHANGWAT`,'|',`AMPHUR`,'|',`NATION`,'|',`AdmType`,'|',`AdmSource`,'|',`DTAdm`,'|',`DTDisch`,'|',`LeaveDay`,'|',`DischStat`,'|',`DischType`,'|',`AdmWt`,'|',`DischWard`,'|',`Dept`) AS `ipadt`,`AN`, `Invoice`, `RECEIPT_DATE`, `ServiceType`, `CareAs` FROM `aipn_ipadt` WHERE `AN` = :an:";
@@ -51,5 +51,32 @@ class AipnImport {
             $r['Dept'],
         ];
         return implode('|', $fields_);
+    }
+
+    /**
+     * ข้อมูลการวินิจฉัยโรค ICD10
+     * @param string $an AN.
+     * @return array getResultArray()
+     */
+    public function facthIpdx(string $an) {
+        $result_ = [];
+        $rows = $this->facthCSV('ipdx.csv');
+        foreach ($rows as $r) {
+//            $ipdx_as = [
+//                $r['DxType'], $r['CodeSys'], $r['Code'], $r['DiagTerm'], $r['DR'], $r['DateDiag'],
+//            ];
+            $as_['ipdx'] = [
+                $r['DxType'], $r['CodeSys'], $r['Code'], $r['DiagTerm'], $r['DR'], $r['DateDiag'],
+            ];
+            $result_[] = array_merge($as_, $r);
+//            print_r($row);
+        }
+//        print_r($result_);
+//        die('facthIpdx');
+//        $sql = "SELECT concat(`DxType`,'|',`CodeSys`,'|',`Code`,'|',`DiagTerm`,'|',`DR`,'|',`DateDiag`) AS `ipdx`,`AN` FROM `aipn_ipdx` WHERE `AN` = :an: order by DxType";
+//        $db = Database::connect();
+//        return $db->query($sql, [
+//                    'an' => $an,
+//                ])->getResultArray();
     }
 }

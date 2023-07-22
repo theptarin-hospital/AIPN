@@ -30,11 +30,11 @@ class AipnZip extends AipnXml {
                 throw new Exception('AN ไม่มี');
             }
             $this->setClaimAuth($ipadt_row_);
-//            $this->setIPDx($model->facthIpdx($this->an));
+            $this->setIPDx($files->facthIpdx($this->an));
 //            $this->setIPOp($model->facthIpop($this->an));
 //            $this->setInvoices($model->facthBillitems($this->an));
 //            $this->zip_path = $this->setZip($id);
-//            $this->setZip($id);
+            $this->setZip($id);
         } catch (Exception $exc) {
             echo $exc->getMessage();
         } finally {
