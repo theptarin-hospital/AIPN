@@ -32,7 +32,7 @@ class AipnZip extends AipnXml {
             $this->setClaimAuth($ipadt_row_);
             $this->setIPDx($files->facthIpdx($this->an));
             $this->setIPOp($files->facthIpop($this->an));
-//            $this->setInvoices($model->facthBillitems($this->an));
+            $this->setInvoices($files->facthBillitems($this->an));
 //            $this->zip_path = $this->setZip($id);
             $this->setZip($id);
         } catch (Exception $exc) {

@@ -32,7 +32,11 @@ class AipnImport {
     public function facthIpadt(string $an = '0') {
         $rows = $this->facthCSV('ipadt.csv');
         foreach ($rows as $row) {
-            return array_merge(['ipadt' => $this->setIpadt($row)], $row);
+            return array_merge([
+                'ipadt' => $this->setIpadt($row),
+                'Invoice' => $row['BillNo'],
+                'RECEIPT_DATE' => $row['BillDate'],
+                    ], $row);
         }
     }
 
@@ -42,6 +46,7 @@ class AipnImport {
      * @return string
      */
     private function setIpadt(array $r) {
+//        $sql = "SELECT concat(`AN`,'|',`HN`,'|',`IDTYPE`,'|',`PIDPAT`,'|',`TITLE`,'|',`NAMEPAT`,'|',`DOB`,'|',`SEX`,'|',`MARRIAGE`,'|',`CHANGWAT`,'|',`AMPHUR`,'|',`NATION`,'|',`AdmType`,'|',`AdmSource`,'|',`DTAdm`,'|',`DTDisch`,'|',`LeaveDay`,'|',`DischStat`,'|',`DischType`,'|',`AdmWt`,'|',`DischWard`,'|',`Dept`) AS `ipadt`,`AN`, `Invoice`, `RECEIPT_DATE`, `ServiceType`, `CareAs` FROM `aipn_ipadt` WHERE `AN` = :an:";
         $fields_ = [
             $r['AN'], $r['HN'], $r['IDTYPE'], $r['PIDPAT'], $r['TITLE'], $r['NAMEPAT'], $r['DOB'], $r['SEX'],
             $r['MARRIAGE'], $r['CHANGWAT'], $r['AUMPHUR'], $r['NATION'], $r['AdmType'], $r['AdmSource'],
@@ -112,18 +117,29 @@ class AipnImport {
         $results_ = [];
         $rows = $this->facthCSV('billitems.csv');
         foreach ($rows as $row) {
-            $results_[] = array_merge(['invoices' => $this->setInvoice($row)], $row);
+            $results_[] = array_merge([
+                'invoices' => $this->setInvoice($row),
+                'amount' => $row['QTY'] * $row['UnitPrice'],
+                'amount_x' => $row['XDRG'],
+                'discount' => $row['Discount'],
+                    ], $row);
         }
         return $results_;
     }
+
     /*
      * กำหนด Invoices สำหรับใช้ใน XML  
      * @param array $r Row record
      * @return string
      */
+
     private function setInvoice(array $r) {
+//         $sql = "SELECT CONCAT( `ServDate`, '|', `BillGr`, '|', `LCCode`, '|', `Descript`, '|', `QTY`, '|', `UnitPrice`, '|', `ChargeAmt`, '|', `Discount`, '|', `ProcedureSeq`, '|', `DiagnosisSeq`, '|', `ClaimSys`, '|', `BillGrCS`, '|', `CSCode`, '|', `CodeSys`, '|', `STDCode`, '|', `ClaimCat`, '|', `DateRev`, '|', `ClaimUP`, '|', `ClaimAmt` ) AS `invoices`, `QTY` * `UnitPrice` AS `amount`, `XDRG` AS `amount_x`,`Discount` AS `discount`, `AN`, `ClaimCat` FROM `aipn_billitems` WHERE `AN` = :an:";
+//         , '|', `ClaimCat`, '|', `DateRev`, '|', `ClaimUP`, '|', `ClaimAmt` ) AS `invoices`, `QTY` * `UnitPrice` AS `amount`, `XDRG` AS `amount_x`,`Discount` AS `discount`, `AN`, `ClaimCat` FROM `aipn_billitems` WHERE `AN` = :an:";
         $fields_ = [
-            $r['CodeSys'], $r['Code'], $r['ProcTerm'], $r['DR'], $r['DateTimeIn'], $r['DateTimeOut'], $r['Location'],
+            $r['ServDate'], $r['BillGr'], $r['LCCode'], $r['Descript'], $r['QTY'], $r['UnitPrice'], $r['ChargeAmt'],
+            $r['Discount'], $r['ProcedureSeq'], $r['ClaimSys'], $r['BillGrCS'], $r['CSCode'], $r['CodeSys'], $r['STDCode'],
+            $r['ClaimCat'], $r['DateRev'], $r['ClaimUP'], $r['ClaimAmt'],
         ];
         return implode('|', $fields_);
     }
