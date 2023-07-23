@@ -4,12 +4,12 @@ namespace App\Libraries\Aipn;
 
 use Exception;
 use ZipArchive;
-//use App\Models\AipnModel;
 use App\Libraries\Aipn\AipnImport;
 use App\Libraries\Aipn\AipnXml;
 
 /**
  * All In-patient Claim Data File Specification : AIPN
+ *  สร้างไฟล์ XML และ ZIP สำหรับดาวน์โหลดใช้งาน
  * @author suchart bunhachirat <suchartbu@gmail.com>
  * @link https://drive.google.com/file/d/1RL-iuL4bNWE8wzkCB_EcR6yf18EmGWlr/view?usp=share_link
  */
@@ -33,8 +33,8 @@ class AipnZip extends AipnXml {
             $this->setIPDx($files->facthIpdx($this->an));
             $this->setIPOp($files->facthIpop($this->an));
             $this->setInvoices($files->facthBillitems($this->an));
-//            $this->zip_path = $this->setZip($id);
-            $this->setZip($id);
+            $this->zip_path = $this->setZip($id);
+//            $this->setZip($id);
         } catch (Exception $exc) {
             echo $exc->getMessage();
         } finally {
@@ -63,7 +63,14 @@ class AipnZip extends AipnXml {
         return $this->zip_path;
     }
 
+    /**
+     * XML ZIP File Download URL
+     * @return string URL base_url/zip path/file name.
+     */
     public function getZipUrl() {
-        return 'http://localhost/AIPN/public/' . $this->getZipPath();
+//        echo $this->getZipPath();
+        echo base_url($this->getZipPath());
+        return 'String';
+//        return 'http://localhost/AIPN/public/' . $this->getZipPath();
     }
 }
