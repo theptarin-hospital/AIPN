@@ -2,8 +2,8 @@
 
 namespace Config;
 
-use App\Controllers\Theptarin;
-use App\Controllers\Pages;
+//use App\Controllers\Theptarin;
+//use App\Controllers\Pages;
 
 //use App\Controllers\Bootstrap;
 // Create a new instance of our RouteCollection class.

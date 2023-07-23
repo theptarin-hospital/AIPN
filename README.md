@@ -5,4 +5,9 @@
 4.รหัสหัตถการและการผ่าตัด  ICD9 
 5.รายการอัตราค่ารักษาพยาบาลของแต่ละกองทุน
 https://drive.google.com/file/d/1RL-iuL4bNWE8wzkCB_EcR6yf18EmGWlr/view?usp=sharing
-php spark serve (RUN เอง)
+php spark serve (RUN เอง
+CI_ENVIRONMENT = development
+www-data writable
+TXTFiles
+XMLFiles
+ZIPFiles
