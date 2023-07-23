@@ -54,23 +54,13 @@ class AipnCTL extends BaseController {
             return redirect()->route('aipn');
         }
         $info_ = $this->setFiles();
-        $aipn = $this->getXMLZip();
-        echo $aipn->getZipUrl();
+        $post_ = $this->request->getPost();
+        $an = '661440003';
+        $id = '1' . $post_['num'];
+        $aipn = new AipnZip($an);
+        echo $aipn->getZip($id);
         $data_ = ['uploaded_fileinfo' => $info_['ipadt'], 'aipn_zipinfo' => []];
         return view(self::PAGES_FOLDER . 'aipn-success', $data_);
-    }
-
-    /**
-     * สร้างไฟล์ XMLZip
-     */
-    public function getXMLZip() {
-        $post_ = $this->request->getPost();
-        print_r($post_);
-//        die('post');
-        $an = '661440003';
-//        $id = 10000;
-        $id = '1' . $post_['num'];
-        return new AipnZip($an, $id);
     }
 
     /**

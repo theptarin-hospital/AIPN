@@ -16,11 +16,13 @@ use App\Libraries\Aipn\AipnXml;
 class AipnZip extends AipnXml {
 
     const ZIP_PATH = 'ZIPFiles/';
+    const XML_PATH = 'XMLFiles/';
 
     protected $zip_name = null;
-    private $zip_path = null;
 
-    public function __construct(int $an, int $id) {
+//    private $zip_path = null;
+
+    public function __construct(int $an) {
         try {
             parent::__construct($an);
             $this->setHeader();
@@ -33,8 +35,6 @@ class AipnZip extends AipnXml {
             $this->setIPDx($files->facthIpdx($this->an));
             $this->setIPOp($files->facthIpop($this->an));
             $this->setInvoices($files->facthBillitems($this->an));
-            $this->zip_path = $this->setZip($id);
-//            $this->setZip($id);
         } catch (Exception $exc) {
             echo $exc->getMessage();
         } finally {
@@ -48,29 +48,33 @@ class AipnZip extends AipnXml {
      * @param type $id
      * @return string
      */
-    public function setZip(int $id) {
+    private function setZip(int $id) {
         parent::save();
         $zip = new ZipArchive();
         $this->zip_name = $this->hcare_id . $this->doc_type . $id;
         $zip_path = self::ZIP_PATH . $this->zip_name . '.zip';
         $zip->open($zip_path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
-        $zip->addFile('XMLFiles/' . $this->file_name . '.xml', $this->file_name . '.xml');
+        $zip->addFile(self::XML_PATH . $this->file_name . '.xml', $this->file_name . '.xml');
         $zip->close();
         return $zip_path;
-    }
-
-    public function getZipPath() {
-        return $this->zip_path;
     }
 
     /**
      * XML ZIP File Download URL
      * @return string URL base_url/zip path/file name.
      */
-    public function getZipUrl() {
-//        echo $this->getZipPath();
-        echo base_url($this->getZipPath());
-        return 'String';
-//        return 'http://localhost/AIPN/public/' . $this->getZipPath();
+    public function getZip(int $id) {
+        return base_url($this->setZip($id));
     }
+
+//    public function getZipPath() {
+//        return $this->zip_path;
+//    }
+//    /**
+//     * XML ZIP File Download URL
+//     * @return string URL base_url/zip path/file name.
+//     */
+//    public function getZipUrl() {
+//        return base_url($this->getZipPath());
+//    }
 }
