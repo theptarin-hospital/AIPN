@@ -1,5 +1,4 @@
 <?= $this->extend("layout/aipn-master") ?>
-
 <?= $this->section("pageTitle") ?>
 TRH|<?= lang('app.aipn_success_page') ?>
 <?= $this->endSection() ?>

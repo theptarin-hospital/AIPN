@@ -16,8 +16,12 @@ TRH|<?= lang('app.aipn_index_page') ?>
         <form action="<?php echo base_url('aipn/upload'); ?>" class="was-validated" method="post" enctype="multipart/form-data">
             <div class="form-group mb-3">
                 <div class="input-group mb-3">               
-                    <span class="input-group-text" >ID</span>
+                    <span class="input-group-text" >No.</span>
                     <input type="number" name="num"class="form-control" min="1" max="9999" placeholder="<?= lang('app.aipn_index_id_placeholder') ?>" required>
+                </div>
+                <div class="input-group mb-3">               
+                    <span class="input-group-text" >AN.</span>
+                    <input type="text" name="an"class="form-control" maxlength="9" placeholder="<?= lang('app.aipn_index_an_placeholder') ?>" required>
                 </div>
                 <div class="input-group mb-3">
                     <input type="file" name="ipadt" class="form-control" accept=".CSV" required>

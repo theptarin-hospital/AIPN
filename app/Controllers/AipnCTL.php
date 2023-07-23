@@ -20,6 +20,7 @@ class AipnCTL extends BaseController {
     const IMPORT_FOLDER = WRITEPATH . 'aipn/imports/';
     const RULES = [
         'num' => 'required',
+        'an' => 'required',
         'ipadt' => 'uploaded[ipadt]|max_size[ipadt,2048]|ext_in[ipadt,csv]',
         'ipdx' => 'uploaded[ipdx]|max_size[ipdx,2048]|ext_in[ipdx,csv]',
         'ipop' => 'uploaded[ipop]|max_size[ipop,2048]|ext_in[ipop,csv]',
@@ -55,9 +56,10 @@ class AipnCTL extends BaseController {
         }
         $info_ = $this->setFiles();
         $post_ = $this->request->getPost();
-        $an = '661440003';
-        $id = '1' . $post_['num'];
-        $aipn = new AipnZip($an);
+//        $an = '661440003';
+//        $id = '1' . $post_['num'];
+        $id = '10000' + $post_['num'];
+        $aipn = new AipnZip($post_['an']);
 //        echo $aipn->getZip($id);
         $data_ = ['uploaded_fileinfo' => $info_['ipadt'], 'aipn_' => ['url'=> $aipn->getZip($id),]];
         return view(self::PAGES_FOLDER . 'aipn-success', $data_);
