@@ -46,8 +46,8 @@
                     <nav class="nav nav-masthead justify-content-center float-md-end">
                         <a class="nav-link active" aria-current="page" href="<?= base_url(); ?>">Home</a>
                         <a class="nav-link" href="<?= base_url('aipn'); ?>">AIPN</a>
-                        <a class="nav-link" href="<?= base_url('upload'); ?>">Upload</a>
-                        <a class="nav-link" href="<?= base_url('about'); ?>">Contact</a>
+                        <a class="nav-link" href="<?= '#' ?>">Links</a>
+                        <a class="nav-link" href="<?= '#' ?>">About</a>
                     </nav>
                 </div>
             </header>
