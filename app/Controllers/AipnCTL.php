@@ -58,8 +58,8 @@ class AipnCTL extends BaseController {
         $an = '661440003';
         $id = '1' . $post_['num'];
         $aipn = new AipnZip($an);
-        echo $aipn->getZip($id);
-        $data_ = ['uploaded_fileinfo' => $info_['ipadt'], 'aipn_zipinfo' => []];
+//        echo $aipn->getZip($id);
+        $data_ = ['uploaded_fileinfo' => $info_['ipadt'], 'aipn_' => ['url'=> $aipn->getZip($id),]];
         return view(self::PAGES_FOLDER . 'aipn-success', $data_);
     }
 

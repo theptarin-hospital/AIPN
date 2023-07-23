@@ -14,12 +14,9 @@ TRH|<?= lang('app.aipn_success_page') ?>
             <?php $validation = \Config\Services::validation(); ?>
         </div>
         <div class="mt-2">
-            <?php print_r($aipn_zipinfo) ?>
-            <ul>
-                <li>name: <?= esc($uploaded_fileinfo->getBasename()) ?></li>
-                <li>size: <?= esc($uploaded_fileinfo->getSizeByUnit('kb')) ?> KB</li>
-                <li>extension: <?= esc($uploaded_fileinfo->guessExtension()) ?></li>
-            </ul>
+            <div class="d-grid">
+                <a href="<?=$aipn_['url']?>" class="btn btn-success"><?= lang('app.aipn_success_download') ?></a>
+            </div>
         </div>
     </div>
 </div>
