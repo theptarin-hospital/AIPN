@@ -49,7 +49,7 @@ class AipnImport {
 //        $sql = "SELECT concat(`AN`,'|',`HN`,'|',`IDTYPE`,'|',`PIDPAT`,'|',`TITLE`,'|',`NAMEPAT`,'|',`DOB`,'|',`SEX`,'|',`MARRIAGE`,'|',`CHANGWAT`,'|',`AMPHUR`,'|',`NATION`,'|',`AdmType`,'|',`AdmSource`,'|',`DTAdm`,'|',`DTDisch`,'|',`LeaveDay`,'|',`DischStat`,'|',`DischType`,'|',`AdmWt`,'|',`DischWard`,'|',`Dept`) AS `ipadt`,`AN`, `Invoice`, `RECEIPT_DATE`, `ServiceType`, `CareAs` FROM `aipn_ipadt` WHERE `AN` = :an:";
         $fields_ = [
             $r['AN'], $r['HN'], $r['IDTYPE'], $r['PIDPAT'], $r['TITLE'], $r['NAMEPAT'], $r['DOB'], $r['SEX'],
-            $r['MARRIAGE'], $r['CHANGWAT'], $r['AUMPHUR'], $r['NATION'], $r['AdmType'], $r['AdmSource'],
+            $r['MARRIAGE'], $r['CHANGWAT'], $r['AMPHUR'], $r['NATION'], $r['AdmType'], $r['AdmSource'],
             $r['DTAdm'], $r['DTDisch'], $r['LeaveDay'], $r['DischStat'], $r['DischType'], $r['AdmWt'], $r['DischWard'],
             $r['Dept'],
         ];

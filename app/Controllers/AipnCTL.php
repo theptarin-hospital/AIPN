@@ -91,7 +91,7 @@ class AipnCTL extends BaseController {
         return view(self::PAGES_FOLDER . 'aipn-about');
     }
 
-    public function contact() {
-        return view(self::PAGES_FOLDER . 'aipn-contact');
-    }
+//    public function contact() {
+//        return view(self::PAGES_FOLDER . 'aipn-contact');
+//    }
 }
