@@ -137,9 +137,12 @@ class AipnImport {
 //         $sql = "SELECT CONCAT( `ServDate`, '|', `BillGr`, '|', `LCCode`, '|', `Descript`, '|', `QTY`, '|', `UnitPrice`, '|', `ChargeAmt`, '|', `Discount`, '|', `ProcedureSeq`, '|', `DiagnosisSeq`, '|', `ClaimSys`, '|', `BillGrCS`, '|', `CSCode`, '|', `CodeSys`, '|', `STDCode`, '|', `ClaimCat`, '|', `DateRev`, '|', `ClaimUP`, '|', `ClaimAmt` ) AS `invoices`, `QTY` * `UnitPrice` AS `amount`, `XDRG` AS `amount_x`,`Discount` AS `discount`, `AN`, `ClaimCat` FROM `aipn_billitems` WHERE `AN` = :an:";
 //         , '|', `ClaimCat`, '|', `DateRev`, '|', `ClaimUP`, '|', `ClaimAmt` ) AS `invoices`, `QTY` * `UnitPrice` AS `amount`, `XDRG` AS `amount_x`,`Discount` AS `discount`, `AN`, `ClaimCat` FROM `aipn_billitems` WHERE `AN` = :an:";
         $fields_ = [
-            $r['ServDate'], $r['BillGr'], $r['LCCode'], $r['Descript'], $r['QTY'], $r['UnitPrice'], $r['ChargeAmt'],
-            $r['Discount'], $r['ProcedureSeq'], $r['ClaimSys'], $r['BillGrCS'], $r['CSCode'], $r['CodeSys'], $r['STDCode'],
-            $r['ClaimCat'], $r['DateRev'], $r['ClaimUP'], $r['ClaimAmt'],
+            $r['ServDate'], $r['BillGr'], $r['LCCode'], $r['Descript'],
+            number_format($r['QTY'], 2, '.', ''), number_format($r['UnitPrice'], 4, '.', ''),
+            number_format($r['ChargeAmt'], 4, '.', ''), number_format($r['Discount'], 4, '.', ''),
+            $r['ProcedureSeq'], $r['DiagnosisSeq'], $r['ClaimSys'], $r['BillGrCS'], $r['CSCode'], $r['CodeSys'],
+            $r['STDCode'], $r['ClaimCat'], $r['DateRev'], number_format($r['ClaimUP'], 2, '.', ''),
+            number_format($r['ClaimAmt'], 4, '.', ''),
         ];
         return implode('|', $fields_);
     }
