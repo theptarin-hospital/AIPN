@@ -165,7 +165,7 @@ class AipnXml {
             $str_line = trim(fgets($file_read), "\n");
             if ($str_line != "") {
 //                echo($str_line);
-                fwrite($file_write, iconv("UTF-8", "tis-620", $str_line . "\r\n"));
+                fwrite($file_write, iconv("UTF-8", "tis-620//TRANSLIT", $str_line . "\r\n"));
             }
         }
         fclose($file_read);
