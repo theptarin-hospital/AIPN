@@ -40,7 +40,7 @@ $routes->post('aipn/create', 'AipnCTL::create');
 //$routes->post('aipn/ipadt', 'Aipn::ipadt');
 //$routes->post('aipn/ipadt/upload', 'Aipn::ipadt_upload');
 //$routes->get('aipn/ipdx', 'Aipn::ipdx');
-$routes->get('about', 'Aipn::about');
+$routes->get('about', 'AipnCTL::about');
 //$routes->get('upload', 'Upload::index');          // Add this line.
 //$routes->post('upload/upload', 'Upload::upload'); // Add this line.
 //$routes->get('theptarin', [Theptarin::class, 'index']);

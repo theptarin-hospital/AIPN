@@ -1,4 +1,4 @@
-<?= $this->extend("layout/master") ?>
+<?= $this->extend("layout/aipn-master") ?>
 
 <?= $this->section("pageTitle") ?>
 About Us
