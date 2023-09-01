@@ -71,12 +71,15 @@ class AipnXml {
      */
     public function setClaimAuth(array $row_) {
         $this->ipadt_ = $row_;
-        $this->document->getElementsByTagName('UPayPlan')->item(0)->nodeValue = '80';
+        $this->document->getElementsByTagName('UPayPlan')->item(0)->nodeValue = $row_['UPayPlan'];
         $this->document->getElementsByTagName('ServiceType')->item(0)->nodeValue = $this->ipadt_['ServiceType'];
-//        $this->document->getElementsByTagName('Hmain')->item(0)->nodeValue = $this->hmain_id;
+        $this->document->getElementsByTagName('ProjectCode')->item(0)->nodeValue = $row_['ProjectCode'];
+        $this->document->getElementsByTagName('EventCode')->item(0)->nodeValue = $row_['EventCode'];
+        $this->document->getElementsByTagName('UserReserve')->item(0)->nodeValue = $row_['UserReserve'];
         $this->document->getElementsByTagName('Hmain')->item(0)->nodeValue = $this->ipadt_['Hmain'];
         $this->document->getElementsByTagName('Hcare')->item(0)->nodeValue = $this->hcare_id;
         $this->document->getElementsByTagName('CareAs')->item(0)->nodeValue = $this->ipadt_['CareAs'];
+        $this->document->getElementsByTagName('ServiceSubType')->item(0)->nodeValue = $row_['ServiceSubType'];
         $this->setIPADT();
     }
 
