@@ -36,6 +36,11 @@ class AipnImport {
                 'ipadt' => $this->setIpadt($row),
                 'Invoice' => $row['BillNo'],
                 'RECEIPT_DATE' => $row['BillDate'],
+                'ins_type_code' => $row['InsTypeCode'],
+                'ins_total' => $row['InsTotal'],
+                'ins_room_board' => $row['InsRoomBoard'],
+                'ins_prof_fee' => $row['InsProfFee'],
+                'ins_other' => $row['InsOther']
                     ], $row);
         }
     }

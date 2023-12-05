@@ -27,6 +27,9 @@ class AipnZip extends AipnXml {
             parent::__construct($an);
             $this->setHeader();
             $files = new AipnImport();
+            /**
+             * @todo ตรวจสอบ AN ก่อนสร้างไฟล์
+             */
             $ipadt_row_ = $files->facthIpadt($an);
             if (is_null($ipadt_row_)) {
                 throw new Exception('AN ไม่มี');

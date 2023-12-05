@@ -146,6 +146,18 @@ class AipnXml {
         $this->document->getElementsByTagName('InvAddDiscount')->item(0)->nodeValue = number_format($inv_['discount'], 2, '.', '');
         $this->document->getElementsByTagName('DRGCharge')->item(0)->nodeValue = number_format($inv_['total_d'], 4, '.', ''); // รูปแบบ 0000.0000
         $this->document->getElementsByTagName('XDRGClaim')->item(0)->nodeValue = number_format($inv_['total_x'], 4, '.', ''); // รูปแบบ 0000.0000
+        $this->setCoInsurance();
+    }
+
+    /**
+     * ข้อมูลยอดเบิกจากสิทธิอื่นๆ
+     */
+    public function setCoInsurance() {
+        $this->document->getElementsByTagName('InsTypeCode')->item(0)->nodeValue = $this->ipadt_['ins_type_code'];
+        $this->document->getElementsByTagName('InsTotal')->item(0)->nodeValue = number_format($this->ipadt_['ins_total'], 2, '.', '');
+        $this->document->getElementsByTagName('InsRoomBoard')->item(0)->nodeValue = number_format($this->ipadt_['ins_room_board'], 2, '.', '');
+        $this->document->getElementsByTagName('InsProfFee')->item(0)->nodeValue = number_format($this->ipadt_['ins_prof_fee'], 2, '.', '');
+        $this->document->getElementsByTagName('InsOther')->item(0)->nodeValue = number_format($this->ipadt_['ins_other'], 2, '.', '');
     }
 
     /**

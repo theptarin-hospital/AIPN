@@ -37,7 +37,7 @@
             <InsTypeCode></InsTypeCode>
             <InsTotal></InsTotal>
             <InsRoomBoard></InsRoomBoard>
-            <InProfFee></InProfFee>
+            <InsProfFee></InsProfFee>
             <InsOther></InsOther>
         </Insutance>
     </CoInsurance>
