@@ -32,5 +32,13 @@
         <DRGCharge></DRGCharge>
         <XDRGClaim></XDRGClaim>
     </Invoices>
-    <CoInsurance></CoInsurance>
+    <CoInsurance>
+        <Insutance>
+            <InsTypeCode></InsTypeCode>
+            <InsTotal></InsTotal>
+            <InsRoomBoard></InsRoomBoard>
+            <InProfFee></InProfFee>
+            <InsOther></InsOther>
+        </Insutance>
+    </CoInsurance>
 </CIPN>
